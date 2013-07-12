@@ -8,6 +8,7 @@ import com.intellij.openapi.actionSystem.LangDataKeys;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.module.Module;
+import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ProjectRootManager;
 import com.intellij.openapi.ui.Messages;
@@ -18,8 +19,8 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiFileFactory;
 import com.intellij.util.IncorrectOperationException;
 import ideah.HaskellFileType;
-import ideah.module.HaskellModuleType;
 import ideah.util.DeclarationPosition;
+import org.consulo.haskell.module.extension.HaskellModuleExtension;
 import org.jetbrains.annotations.NotNull;
 
 public final class NewHaskellFileAction extends CreateElementActionBase {
@@ -139,6 +140,6 @@ public final class NewHaskellFileAction extends CreateElementActionBase {
         Module module = DeclarationPosition.getDeclModule(project, dir);
         if (module == null)
             return false;
-        return HaskellModuleType.INSTANCE.equals(HaskellModuleType.get(module));
+        return ModuleUtilCore.getExtension(module, HaskellModuleExtension.class) != null;
     }
 }

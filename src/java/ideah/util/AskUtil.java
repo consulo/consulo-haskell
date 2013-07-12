@@ -2,13 +2,14 @@ package ideah.util;
 
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.module.Module;
+import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.projectRoots.SdkAdditionalData;
-import com.intellij.openapi.roots.ModuleRootManager;
 import com.intellij.openapi.util.io.StreamUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import ideah.sdk.HaskellSdkAdditionalData;
+import org.consulo.haskell.module.extension.HaskellModuleExtension;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -52,7 +53,7 @@ final class AskUtil {
     static AskUtil get(@Nullable Module module, String mainFile) {
         if (module == null)
             return null;
-        Sdk sdk = ModuleRootManager.getInstance(module).getSdk();
+        Sdk sdk = ModuleUtilCore.getSdk(module, HaskellModuleExtension.class);
         if (sdk == null)
             return null;
         VirtualFile ghcHome = sdk.getHomeDirectory();

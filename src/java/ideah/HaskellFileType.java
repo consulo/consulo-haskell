@@ -3,8 +3,8 @@ package ideah;
 import com.intellij.lang.Language;
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.IconLoader;
 import com.intellij.openapi.vfs.VirtualFile;
+import org.consulo.haskell.HaskellIcons;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,13 +15,14 @@ public final class HaskellFileType extends LanguageFileType {
 
     public static final HaskellFileType INSTANCE = new HaskellFileType();
     public static final Language HASKELL_LANGUAGE = INSTANCE.getLanguage();
-    public static final Icon HASKELL_ICON = IconLoader.getIcon("/ideah/haskell_16x16.png");
+	@Deprecated
+    public static final Icon HASKELL_ICON = HaskellIcons.Haskell16x16;
 
     private static final String HASKELL_CHARSET_NAME = "UTF8";
     public static final Charset HASKELL_CHARSET = Charset.forName(HASKELL_CHARSET_NAME);
 
     public HaskellFileType() {
-        super(new HaskellLanguage());
+        super(HaskellLanguage.INSTANCE);
     }
 
     @NotNull
@@ -41,10 +42,6 @@ public final class HaskellFileType extends LanguageFileType {
 
     public Icon getIcon() {
         return HASKELL_ICON;
-    }
-
-    public boolean isJVMDebuggingSupported() {
-        return false;
     }
 
     @Override

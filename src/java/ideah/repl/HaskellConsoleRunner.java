@@ -12,6 +12,7 @@ import com.intellij.ide.CommonActionsManager;
 import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.module.Module;
+import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.projectRoots.SdkAdditionalData;
@@ -23,6 +24,7 @@ import com.intellij.openapi.wm.ToolWindowManager;
 import ideah.sdk.HaskellSdkAdditionalData;
 import ideah.sdk.HaskellSdkType;
 import ideah.util.GHCUtil;
+import org.consulo.haskell.module.extension.HaskellModuleExtension;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -231,7 +233,7 @@ public final class HaskellConsoleRunner {
     }
 
     private static GeneralCommandLine createCommandLine(Module module, String workingDir) throws CantRunException {
-        Sdk sdk = ModuleRootManager.getInstance(module).getSdk();
+        Sdk sdk = ModuleUtilCore.getSdk(module, HaskellModuleExtension.class);
         VirtualFile homePath;
         if (sdk == null || !(sdk.getSdkType() instanceof HaskellSdkType) || sdk.getHomePath() == null) {
             throw new CantRunException("Invalid SDK Home path set. Please set your SDK path correctly.");

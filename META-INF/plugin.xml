@@ -1,107 +1,99 @@
 <idea-plugin version="2" url="http://code.google.com/p/ideah/">
-    <id>ideah</id>
-    <name>Haskell</name>
-    <description>Support for Haskell language</description>
-    <category>Custom Languages</category>
-    <version>VERSION</version>
-    <vendor logo="/ideah/haskell_16x16.png" url="http://code.google.com/p/ideah/" email="ideah.plugin@gmail.com">
-        ideah.plugin@gmail.com
-    </vendor>
-    <idea-version since-build="111.69"/>
+	<id>org.consulo.haskell</id>
+	<name>Haskell</name>
+	<description>Support for Haskell language</description>
+	<category>Custom Languages</category>
+	<version>VERSION</version>
+	<vendor logo="/ideah/haskell_16x16.png" url="http://code.google.com/p/ideah/" email="ideah.plugin@gmail.com">
+		ideah.plugin@gmail.com
+	</vendor>
 
-    <application-components>
-        <component>
-            <implementation-class>ideah.HaskellLoader</implementation-class>
-        </component>
-    </application-components>
+	<application-components>
+		<component>
+			<implementation-class>ideah.HaskellLoader</implementation-class>
+		</component>
+	</application-components>
 
-    <project-components>
-        <component>
-            <implementation-class>ideah.compiler.HaskellCompilerProjectComponent</implementation-class>
-        </component>
-    </project-components>
+	<actions>
+		<!-- Create file actions -->
+		<action id="Haskell.HaskellFile" class="ideah.actions.NewHaskellFileAction"
+				text="Haskell module" description="Create new Haskell module">
+			<add-to-group group-id="NewGroup" anchor="first"/>
+		</action>
 
-    <actions>
-        <!-- Create file actions -->
-        <action id="Haskell.HaskellFile" class="ideah.actions.NewHaskellFileAction"
-                text="Haskell module" description="Create new Haskell module">
-            <add-to-group group-id="NewGroup" anchor="first"/>
-        </action>
+		<!-- REPL-related actions -->
+		<group id="Haskell.REPL.Group"
+			   class="ideah.repl.actions.HaskellReplActionGroup"
+			   text="Haskell REPL" description="Haskell" popup="true">
 
-        <!-- REPL-related actions -->
-        <group id="Haskell.REPL.Group"
-               class="ideah.repl.actions.HaskellReplActionGroup"
-               text="Haskell REPL" description="Haskell" popup="true">
-
-            <action id="ideah.repl.actions.LoadHaskellFileInConsoleAction"
-                    class="ideah.repl.actions.LoadHaskellFileInConsoleAction"
-                    text="Load/Reload Current File in REPL...">
-                <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift L"/>
-            </action>
+			<action id="ideah.repl.actions.LoadHaskellFileInConsoleAction"
+					class="ideah.repl.actions.LoadHaskellFileInConsoleAction"
+					text="Load/Reload Current File in REPL...">
+				<keyboard-shortcut keymap="$default" first-keystroke="ctrl shift L"/>
+			</action>
 
 
-            <action id="ideah.repl.actions.RunHaskellConsoleAction"
-                    class="ideah.repl.actions.RunHaskellConsoleAction"
-                    text="Start Haskell REPL" description="Runs Haskell REPL">
-                <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift F10"/>
-            </action>
+			<action id="ideah.repl.actions.RunHaskellConsoleAction"
+					class="ideah.repl.actions.RunHaskellConsoleAction"
+					text="Start Haskell REPL" description="Runs Haskell REPL">
+				<keyboard-shortcut keymap="$default" first-keystroke="ctrl shift F10"/>
+			</action>
 
 
-            <add-to-group group-id="ToolsMenu" anchor="last"/>
-        </group>
+			<add-to-group group-id="ToolsMenu" anchor="last"/>
+		</group>
 
 
-        <action id="Haskell.Console.Execute"
-                class="com.intellij.openapi.actionSystem.EmptyAction"
-                text="Execute Current Haskell Statement">
-            <keyboard-shortcut keymap="$default" first-keystroke="ENTER"/>
-        </action>
+		<action id="Haskell.Console.Execute"
+				class="com.intellij.openapi.actionSystem.EmptyAction"
+				text="Execute Current Haskell Statement">
+			<keyboard-shortcut keymap="$default" first-keystroke="ENTER"/>
+		</action>
 
-        <action id="Haskell.Console.Execute.Immediately"
-                class="com.intellij.openapi.actionSystem.EmptyAction"
-                text="Execute Current Haskell Statement">
-            <keyboard-shortcut keymap="$default" first-keystroke="shift ENTER"/>
-        </action>
-    </actions>
+		<action id="Haskell.Console.Execute.Immediately"
+				class="com.intellij.openapi.actionSystem.EmptyAction"
+				text="Execute Current Haskell Statement">
+			<keyboard-shortcut keymap="$default" first-keystroke="shift ENTER"/>
+		</action>
+	</actions>
 
-    <extensions defaultExtensionNs="com.intellij">
-        <fileTypeFactory implementation="ideah.HaskellFileTypeLoader"/>
+	<extensions defaultExtensionNs="com.intellij">
+		<fileTypeFactory implementation="ideah.HaskellFileTypeLoader"/>
 
-        <syntaxHighlighter key="Haskell" implementationClass="ideah.highlighter.HaskellSyntaxHighlighter"/>
-        <colorSettingsPage implementation="ideah.highlighter.HaskellColorsAndFontsPage"/>
-        <lang.braceMatcher language="Haskell"
-                           implementationClass="ideah.highlighter.HaskellBraceMatcher"/>
-        <quoteHandler fileType="Haskell" className="ideah.editor.HaskellQuoteHandler"/>
-        <copyPastePreProcessor implementation="ideah.editor.HaskellStringCopyPasteProcessor"/>
-        <lang.commenter language="Haskell" implementationClass="ideah.highlighter.HaskellCommenter"/>
+		<syntaxHighlighter key="Haskell" implementationClass="ideah.highlighter.HaskellSyntaxHighlighter"/>
+		<colorSettingsPage implementation="ideah.highlighter.HaskellColorsAndFontsPage"/>
+		<lang.braceMatcher language="Haskell"
+						   implementationClass="ideah.highlighter.HaskellBraceMatcher"/>
+		<quoteHandler fileType="Haskell" className="ideah.editor.HaskellQuoteHandler"/>
+		<copyPastePreProcessor implementation="ideah.editor.HaskellStringCopyPasteProcessor"/>
+		<lang.commenter language="Haskell" implementationClass="ideah.highlighter.HaskellCommenter"/>
 
-        <lang.parserDefinition language="Haskell" implementationClass="ideah.parser.HaskellParserDefinition"/>
-        <indexPatternBuilder implementation="ideah.highlighter.HaskellIndexPatternBuilder"/>
+		<lang.parserDefinition language="Haskell" implementationClass="ideah.parser.HaskellParserDefinition"/>
+		<indexPatternBuilder implementation="ideah.highlighter.HaskellIndexPatternBuilder"/>
 
-        <referencesSearch implementation="ideah.findUsages.HaskellReferencesSearch"/>
-        <!--<gotoClassContributor implementation="ideah.gotoSymbol.HaskellGotoContributor"/>-->
-        <!--<lang.formatter language="Haskell"-->
-        <!--implementationClass="ideah.formatter.HaskellFormattingModelBuilder"/>-->
-        <!--<enterHandlerDelegate implementation="ideah.formatter.HaskellEnterHandler"-->
-        <!--order="before EnterBetweenBracesHandler"/>-->
-        <externalAnnotator implementationClass="ideah.annotator.GHCMessageHighlighter" language="Haskell"/>
-        <lang.findUsagesProvider language="Haskell" implementationClass="ideah.findUsages.HaskellFindUsagesProvider"/>
-        <elementDescriptionProvider implementation="ideah.findUsages.HaskellElementDescriptionProvider"/>
-        <lang.documentationProvider language="Haskell"
-                                    implementationClass="ideah.documentation.HaskellDocumentationProvider"/>
+		<referencesSearch implementation="ideah.findUsages.HaskellReferencesSearch"/>
+		<!--<gotoClassContributor implementation="ideah.gotoSymbol.HaskellGotoContributor"/>-->
+		<!--<lang.formatter language="Haskell"-->
+		<!--implementationClass="ideah.formatter.HaskellFormattingModelBuilder"/>-->
+		<!--<enterHandlerDelegate implementation="ideah.formatter.HaskellEnterHandler"-->
+		<!--order="before EnterBetweenBracesHandler"/>-->
+		<externalAnnotator implementationClass="ideah.annotator.GHCMessageHighlighter" language="Haskell"/>
+		<lang.findUsagesProvider language="Haskell" implementationClass="ideah.findUsages.HaskellFindUsagesProvider"/>
+		<elementDescriptionProvider implementation="ideah.findUsages.HaskellElementDescriptionProvider"/>
+		<lang.documentationProvider language="Haskell"
+									implementationClass="ideah.documentation.HaskellDocumentationProvider"/>
 
-        <sdkType id="GHC" implementation="ideah.sdk.HaskellSdkType"/>
-        <moduleType id="HASKELL_MODULE" classpathProvider="false" implementationClass="ideah.module.HaskellModuleType"/>
-        <moduleConfigurationEditorProvider implementation="ideah.module.HaskellModuleConfigEditor"/>
+		<sdkType id="GHC" implementation="ideah.sdk.HaskellSdkType"/>
+		<moduleExtensionProvider key="haskell" implementationClass="org.consulo.haskell.module.extension.HaskellModuleExtensionProvider"/>
 
-        <configurationType implementation="ideah.run.HaskellRunConfigurationType"/>
-        <configurationProducer implementation="ideah.run.HaskellRunConfigurationProducer"/>
+		<configurationType implementation="ideah.run.HaskellRunConfigurationType"/>
+		<configurationProducer implementation="ideah.run.HaskellRunConfigurationProducer"/>
 
-        <renamePsiElementProcessor implementation="ideah.rename.HaskellRenameProcessor"/>
+		<renamePsiElementProcessor implementation="ideah.rename.HaskellRenameProcessor"/>
 
-        <projectService serviceInterface="ideah.psi.api.util.HaskellPsiElementFactory"
-                        serviceImplementation="ideah.psi.api.util.HaskellPsiElementFactoryImpl"/>
+		<projectService serviceInterface="ideah.psi.api.util.HaskellPsiElementFactory"
+						serviceImplementation="ideah.psi.api.util.HaskellPsiElementFactoryImpl"/>
 
-        <lang.namesValidator language="Haskell" implementationClass="ideah.psi.api.util.HaskellIdentNamesValidator"/>
-    </extensions>
+		<lang.namesValidator language="Haskell" implementationClass="ideah.psi.api.util.HaskellIdentNamesValidator"/>
+	</extensions>
 </idea-plugin>

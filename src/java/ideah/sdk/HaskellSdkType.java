@@ -186,12 +186,13 @@ public final class HaskellSdkType extends SdkType {
         return GHC_ICON;
     }
 
-    @Override
-    public Icon getIconForAddAction() {
-        return getIcon();
-    }
+	@Nullable
+	@Override
+	public Icon getGroupIcon() {
+		return getIcon();
+	}
 
-    @Override
+	@Override
     public String adjustSelectedSdkHome(String homePath) {
         return super.adjustSelectedSdkHome(homePath); // todo: if 'bin' or 'ghc' selected, choose parent folder
     }

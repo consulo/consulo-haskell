@@ -1,24 +1,24 @@
 package ideah.lexer;
 
 /**
- * Описание лексемы
+ * РћРїРёСЃР°РЅРёРµ Р»РµРєСЃРµРјС‹
  */
 public final class HaskellToken {
 
     /**
-     * Тип лексемы
+     * РўРёРї Р»РµРєСЃРµРјС‹
      */
-    public final HaskellTokenType type;
+    public final ideah.lexer.HaskellTokenType type;
     /**
-     * Текст лексемы
+     * РўРµРєСЃС‚ Р»РµРєСЃРµРјС‹
      */
     public final String text;
     /**
-     * Координаты первого символа
+     * РљРѕРѕСЂРґРёРЅР°С‚С‹ РїРµСЂРІРѕРіРѕ СЃРёРјРІРѕР»Р°
      */
     public final int coords;
 
-    public HaskellToken(HaskellTokenType type, String text, int coords) {
+    public HaskellToken(ideah.lexer.HaskellTokenType type, String text, int coords) {
         this.type = type;
         this.text = text;
         this.coords = coords;

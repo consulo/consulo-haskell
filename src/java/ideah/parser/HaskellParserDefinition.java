@@ -1,6 +1,7 @@
 package ideah.parser;
 
 import com.intellij.lang.ASTNode;
+import com.intellij.lang.LanguageVersion;
 import com.intellij.lang.ParserDefinition;
 import com.intellij.lang.PsiParser;
 import com.intellij.lexer.Lexer;
@@ -25,11 +26,11 @@ public final class HaskellParserDefinition implements ParserDefinition, HaskellT
     public static final IFileElementType HASKELL_FILE = new IFileElementType(HaskellFileType.HASKELL_LANGUAGE);
 
     @NotNull
-    public Lexer createLexer(Project project) {
+    public Lexer createLexer(Project project, LanguageVersion languageVersion) {
         return new HaskellLexer();
     }
 
-    public PsiParser createParser(Project project) {
+    public PsiParser createParser(Project project, LanguageVersion languageVersion) {
         return new HaskellParser();
     }
 
@@ -38,17 +39,17 @@ public final class HaskellParserDefinition implements ParserDefinition, HaskellT
     }
 
     @NotNull
-    public TokenSet getWhitespaceTokens() {
+    public TokenSet getWhitespaceTokens(LanguageVersion languageVersion) {
         return WHITESPACES;
     }
 
     @NotNull
-    public TokenSet getCommentTokens() {
+    public TokenSet getCommentTokens(LanguageVersion languageVersion) {
         return COMMENTS;
     }
 
     @NotNull
-    public TokenSet getStringLiteralElements() {
+    public TokenSet getStringLiteralElements(LanguageVersion languageVersion) {
         return STRINGS;
     }
 

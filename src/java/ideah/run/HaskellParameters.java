@@ -2,9 +2,10 @@ package ideah.run;
 
 import com.intellij.execution.configurations.SimpleProgramParameters;
 import com.intellij.openapi.module.Module;
+import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.openapi.projectRoots.Sdk;
-import com.intellij.openapi.roots.ModuleRootManager;
 import com.intellij.openapi.vfs.VirtualFile;
+import org.consulo.haskell.module.extension.HaskellModuleExtension;
 import org.jetbrains.annotations.NotNull;
 
 final class HaskellParameters extends SimpleProgramParameters {
@@ -42,7 +43,7 @@ final class HaskellParameters extends SimpleProgramParameters {
     }
 
     public static Sdk getModuleGhc(@NotNull Module module) {
-        Sdk ghc = ModuleRootManager.getInstance(module).getSdk();
+        Sdk ghc = ModuleUtilCore.getSdk(module, HaskellModuleExtension.class);
         if (ghc == null)
             return null;
         VirtualFile homeDirectory = ghc.getHomeDirectory();
