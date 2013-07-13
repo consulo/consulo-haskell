@@ -1,6 +1,7 @@
 package ideah.editor;
 
 import com.intellij.codeInsight.editorActions.CopyPastePreProcessor;
+import com.intellij.lang.ASTNode;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.RawText;
@@ -72,7 +73,11 @@ public final class HaskellStringCopyPasteProcessor implements CopyPastePreProces
         PsiElement elementAtSelection = file.findElementAt(selectionStart);
         if (elementAtSelection == null)
             return null;
-        IElementType tokenType = elementAtSelection.getNode().getElementType();
+		ASTNode node = elementAtSelection.getNode();
+		if(node == null) {
+			return null;
+		}
+		IElementType tokenType = node.getElementType();
         if (tokenType != HaskellTokenTypes.STRING)
             return null;
         TextRange textRange = elementAtSelection.getTextRange();
