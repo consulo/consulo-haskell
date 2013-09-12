@@ -3,7 +3,7 @@
 	<name>Haskell</name>
 	<description>Support for Haskell language</description>
 	<category>Custom Languages</category>
-	<version>VERSION</version>
+	<version>10.</version>
 	<vendor logo="/ideah/haskell_16x16.png" url="http://code.google.com/p/ideah/" email="ideah.plugin@gmail.com">
 		ideah.plugin@gmail.com
 	</vendor>
