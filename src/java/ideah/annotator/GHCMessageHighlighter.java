@@ -1,5 +1,9 @@
 package ideah.annotator;
 
+import java.io.File;
+import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
 import com.intellij.lang.annotation.AnnotationHolder;
 import com.intellij.lang.annotation.ExternalAnnotator;
 import com.intellij.openapi.compiler.CompilerMessageCategory;
@@ -11,18 +15,8 @@ import ideah.compiler.GHCMessage;
 import ideah.compiler.LaunchGHC;
 import ideah.util.DeclarationPosition;
 import ideah.util.LineColRange;
-import org.jetbrains.annotations.NotNull;
-
-import java.io.File;
-import java.util.List;
 
 public final class GHCMessageHighlighter extends ExternalAnnotator<PsiFile, AnnotationResult> {
-
-    @Override
-    public PsiFile collectionInformation(@NotNull PsiFile file) {
-        return file;
-    }
-
     @Override
     public AnnotationResult doAnnotate(PsiFile psiFile) {
         VirtualFile file = psiFile.getVirtualFile();
