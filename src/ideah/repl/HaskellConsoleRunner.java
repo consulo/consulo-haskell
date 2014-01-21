@@ -1,15 +1,41 @@
 package ideah.repl;
 
-import com.intellij.execution.*;
+import java.awt.BorderLayout;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+
+import org.consulo.haskell.module.extension.HaskellModuleExtension;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import com.intellij.execution.CantRunException;
+import com.intellij.execution.ExecutionException;
+import com.intellij.execution.ExecutionHelper;
+import com.intellij.execution.ExecutionManager;
+import com.intellij.execution.Executor;
+import com.intellij.execution.ExecutorRegistry;
 import com.intellij.execution.configurations.CommandLineTokenizer;
 import com.intellij.execution.configurations.GeneralCommandLine;
 import com.intellij.execution.console.ConsoleHistoryController;
 import com.intellij.execution.executors.DefaultRunExecutor;
-import com.intellij.execution.process.*;
+import com.intellij.execution.process.ConsoleHistoryModel;
+import com.intellij.execution.process.ProcessAdapter;
+import com.intellij.execution.process.ProcessEvent;
+import com.intellij.execution.process.ProcessHandler;
+import com.intellij.execution.process.ProcessTerminatedListener;
+import com.intellij.execution.ui.ConsoleViewContentType;
 import com.intellij.execution.ui.RunContentDescriptor;
 import com.intellij.execution.ui.actions.CloseAction;
 import com.intellij.ide.CommonActionsManager;
-import com.intellij.openapi.actionSystem.*;
+import com.intellij.openapi.actionSystem.ActionManager;
+import com.intellij.openapi.actionSystem.ActionPlaces;
+import com.intellij.openapi.actionSystem.ActionToolbar;
+import com.intellij.openapi.actionSystem.AnAction;
+import com.intellij.openapi.actionSystem.DefaultActionGroup;
+import com.intellij.openapi.actionSystem.IdeActions;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtilCore;
@@ -24,15 +50,6 @@ import com.intellij.openapi.wm.ToolWindowManager;
 import ideah.sdk.HaskellSdkAdditionalData;
 import ideah.sdk.HaskellSdkType;
 import ideah.util.GHCUtil;
-import org.consulo.haskell.module.extension.HaskellModuleExtension;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
-import java.awt.*;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public final class HaskellConsoleRunner {
 
@@ -152,7 +169,7 @@ public final class HaskellConsoleRunner {
         HaskellConsole console = consoleView.getConsole();
         for (String statement : statements2execute) {
             String st = statement + "\n";
-            HaskellConsoleHighlightingUtil.processOutput(console, st, ProcessOutputTypes.SYSTEM);
+			console.printToHistory(st, ConsoleViewContentType.SYSTEM_OUTPUT.getAttributes());
             executeHandler.processLine(st);
         }
 
