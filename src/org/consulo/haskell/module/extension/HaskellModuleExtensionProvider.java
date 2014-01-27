@@ -37,8 +37,8 @@ public class HaskellModuleExtensionProvider implements ModuleExtensionProvider<H
 
 	@NotNull
 	@Override
-	public HaskellMutableModuleExtension createMutable(@NotNull String s, @NotNull Module module, @NotNull HaskellModuleExtension moduleExtension)
+	public HaskellMutableModuleExtension createMutable(@NotNull String s, @NotNull Module module)
 	{
-		return new HaskellMutableModuleExtension(s, module, moduleExtension);
+		return new HaskellMutableModuleExtension(s, module);
 	}
 }
