@@ -4,7 +4,7 @@
 	<description>Support for Haskell language</description>
 	<category>Custom Languages</category>
 	<version>10.</version>
-	<vendor logo="/ideah/haskell_16x16.png" url="http://code.google.com/p/ideah/" email="ideah.plugin@gmail.com">
+	<vendor url="http://code.google.com/p/ideah/" email="ideah.plugin@gmail.com">
 		ideah.plugin@gmail.com
 	</vendor>
 
@@ -84,7 +84,11 @@
 									implementationClass="ideah.documentation.HaskellDocumentationProvider"/>
 
 		<sdkType id="GHC" implementation="ideah.sdk.HaskellSdkType"/>
-		<moduleExtensionProvider key="haskell" implementationClass="org.consulo.haskell.module.extension.HaskellModuleExtensionProvider"/>
+		<moduleExtensionProvider key="haskell"
+								 icon="/ideah/haskell_16x16.png"
+								 name="Haskell"
+								 mutableClass="org.consulo.haskell.module.extension.HaskellMutableModuleExtension"
+								 immutableClass="org.consulo.haskell.module.extension.HaskellModuleExtension" />
 
 		<configurationType implementation="ideah.run.HaskellRunConfigurationType"/>
 		<configurationProducer implementation="ideah.run.HaskellRunConfigurationProducer"/>
