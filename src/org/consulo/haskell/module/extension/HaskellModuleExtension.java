@@ -17,8 +17,9 @@ public class HaskellModuleExtension extends ModuleExtensionWithSdkImpl<HaskellMo
 		super(id, modifiableRootModel);
 	}
 
+	@NotNull
 	@Override
-	protected Class<? extends SdkType> getSdkTypeClass()
+	public Class<? extends SdkType> getSdkTypeClass()
 	{
 		return HaskellSdkType.class;
 	}
