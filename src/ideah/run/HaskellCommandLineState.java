@@ -1,5 +1,10 @@
 package ideah.run;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import com.intellij.execution.CantRunException;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.configurations.CommandLineState;
@@ -17,11 +22,6 @@ import com.intellij.openapi.util.Computable;
 import ideah.HaskellFileType;
 import ideah.sdk.HaskellSdkType;
 import ideah.util.GHCUtil;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 final class HaskellCommandLineState extends CommandLineState {
 
@@ -97,8 +97,8 @@ final class HaskellCommandLineState extends CommandLineState {
 
 						Map<String, String> env = parameters.getEnv();
 						if (env != null) {
-							commandLine.setEnvParams(env);
-							commandLine.setPassParentEnvs(parameters.isPassParentEnvs());
+							commandLine.getEnvironment().putAll(env);
+							commandLine.setPassParentEnvironment(parameters.isPassParentEnvs());
 						}
 
 						commandLine.setWorkDirectory(parameters.getWorkingDirectory());
