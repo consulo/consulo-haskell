@@ -8,7 +8,7 @@ import org.consulo.module.extension.ui.ModuleExtensionWithSdkPanel;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.intellij.openapi.projectRoots.Sdk;
-import com.intellij.openapi.roots.ModifiableRootModel;
+import com.intellij.openapi.roots.ModuleRootLayer;
 
 /**
  * @author VISTALL
@@ -16,9 +16,9 @@ import com.intellij.openapi.roots.ModifiableRootModel;
  */
 public class HaskellMutableModuleExtension extends HaskellModuleExtension implements MutableModuleExtensionWithSdk<HaskellModuleExtension>
 {
-	public HaskellMutableModuleExtension(@NotNull String id, @NotNull ModifiableRootModel modifiableRootModel)
+	public HaskellMutableModuleExtension(@NotNull String id, @NotNull ModuleRootLayer moduleRootLayer)
 	{
-		super(id, modifiableRootModel);
+		super(id, moduleRootLayer);
 	}
 
 	@NotNull

@@ -3,7 +3,7 @@ package org.consulo.haskell.module.extension;
 import org.consulo.module.extension.impl.ModuleExtensionWithSdkImpl;
 import org.jetbrains.annotations.NotNull;
 import com.intellij.openapi.projectRoots.SdkType;
-import com.intellij.openapi.roots.ModifiableRootModel;
+import com.intellij.openapi.roots.ModuleRootLayer;
 import ideah.sdk.HaskellSdkType;
 
 /**
@@ -12,9 +12,9 @@ import ideah.sdk.HaskellSdkType;
  */
 public class HaskellModuleExtension extends ModuleExtensionWithSdkImpl<HaskellModuleExtension>
 {
-	public HaskellModuleExtension(@NotNull String id, @NotNull ModifiableRootModel modifiableRootModel)
+	public HaskellModuleExtension(@NotNull String id, @NotNull ModuleRootLayer moduleRootLayer)
 	{
-		super(id, modifiableRootModel);
+		super(id, moduleRootLayer);
 	}
 
 	@NotNull
