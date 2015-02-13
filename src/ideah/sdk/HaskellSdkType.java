@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -13,6 +14,7 @@ import javax.swing.Icon;
 
 import org.consulo.haskell.HaskellIcons;
 import org.jdom.Element;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.intellij.openapi.projectRoots.AdditionalDataConfigurable;
 import com.intellij.openapi.projectRoots.Sdk;
@@ -20,7 +22,6 @@ import com.intellij.openapi.projectRoots.SdkAdditionalData;
 import com.intellij.openapi.projectRoots.SdkModel;
 import com.intellij.openapi.projectRoots.SdkModificator;
 import com.intellij.openapi.projectRoots.SdkType;
-import com.intellij.openapi.roots.OrderRootType;
 import com.intellij.openapi.util.SystemInfo;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.util.containers.HashMap;
@@ -29,14 +30,29 @@ import ideah.util.ProcessLauncher;
 public final class HaskellSdkType extends SdkType
 {
 
-	public static final HaskellSdkType INSTANCE = new HaskellSdkType();
+	@NotNull
+	public static HaskellSdkType getInstance()
+	{
+		return EP_NAME.findExtension(HaskellSdkType.class);
+	}
 
 	public HaskellSdkType()
 	{
 		super("GHC");
 	}
 
+	@NotNull
 	@Override
+	public Collection<String> suggestHomePaths()
+	{
+		String s = suggestHomePath();
+		if(s != null)
+		{
+			return Collections.singletonList(s);
+		}
+		return super.suggestHomePaths();
+	}
+
 	public String suggestHomePath()
 	{
 		File versionsRoot;
@@ -164,6 +180,12 @@ public final class HaskellSdkType extends SdkType
 	}
 
 	@Override
+	public boolean canCreatePredefinedSdks()
+	{
+		return true;
+	}
+
+	@Override
 	public boolean isValidSdkHome(String path)
 	{
 		return checkForGhc(new File(path));
@@ -250,11 +272,12 @@ public final class HaskellSdkType extends SdkType
 	}
 
 	@Override
-	public SdkAdditionalData loadAdditionalData(Element additional)
+	public SdkAdditionalData loadAdditionalData(Sdk sdk, Element additional)
 	{
 		return new HaskellSdkAdditionalData(additional);
 	}
 
+	@NotNull
 	@Override
 	public String getPresentableName()
 	{
@@ -265,36 +288,5 @@ public final class HaskellSdkType extends SdkType
 	public Icon getIcon()
 	{
 		return HaskellIcons.Haskell16x16;
-	}
-
-
-	@Nullable
-	@Override
-	public Icon getGroupIcon()
-	{
-		return getIcon();
-	}
-
-	@Override
-	public String adjustSelectedSdkHome(String homePath)
-	{
-		return super.adjustSelectedSdkHome(homePath); // todo: if 'bin' or 'ghc' selected, choose parent folder
-	}
-
-	@Override
-	public void setupSdkPaths(Sdk sdk)
-	{
-		// todo: ???
-	}
-
-	@Override
-	public boolean isRootTypeApplicable(OrderRootType type)
-	{
-		return false;
-	}
-
-	public static HaskellSdkType getInstance()
-	{
-		return SdkType.findInstance(HaskellSdkType.class);
 	}
 }

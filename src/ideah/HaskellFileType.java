@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 import com.intellij.lang.Language;
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.vfs.CharsetToolkit;
 import com.intellij.openapi.vfs.VirtualFile;
 
 public final class HaskellFileType extends LanguageFileType {
@@ -19,8 +20,8 @@ public final class HaskellFileType extends LanguageFileType {
 	@Deprecated
     public static final Icon HASKELL_ICON = HaskellIcons.Haskell16x16;
 
-    private static final String HASKELL_CHARSET_NAME = "UTF8";
-    public static final Charset HASKELL_CHARSET = Charset.forName(HASKELL_CHARSET_NAME);
+    private static final String HASKELL_CHARSET_NAME = CharsetToolkit.UTF8;
+    public static final Charset HASKELL_CHARSET = CharsetToolkit.UTF8_CHARSET;
 
     public HaskellFileType() {
         super(HaskellLanguage.INSTANCE);
@@ -51,7 +52,7 @@ public final class HaskellFileType extends LanguageFileType {
     }
 
     @Override
-    public Charset extractCharsetFromFileContent(@Nullable Project project, @Nullable VirtualFile file, @NotNull String content) {
+    public Charset extractCharsetFromFileContent(@Nullable Project project, @Nullable VirtualFile file, @NotNull CharSequence content) {
         return HASKELL_CHARSET;
     }
 }
