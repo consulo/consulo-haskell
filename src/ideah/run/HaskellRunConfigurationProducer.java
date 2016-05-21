@@ -17,63 +17,77 @@ import ideah.parser.HaskellFile;
 import ideah.util.CompilerLocation;
 import ideah.util.ProcessLauncher;
 
-public final class HaskellRunConfigurationProducer extends RuntimeConfigurationProducer {
+public final class HaskellRunConfigurationProducer extends RuntimeConfigurationProducer
+{
 
-    private HaskellFile runFile;
+	private HaskellFile runFile;
 
-    private static final Logger LOG = Logger.getInstance("ideah.run.HaskellRunConfigurationProducer");
+	private static final Logger LOG = Logger.getInstance("ideah.run.HaskellRunConfigurationProducer");
 
-    public HaskellRunConfigurationProducer() {
-        super(HaskellRunConfigurationType.getInstance());
-    }
+	public HaskellRunConfigurationProducer()
+	{
+		super(HaskellRunConfigurationType.getInstance());
+	}
 
-    public PsiElement getSourceElement() {
-        return runFile;
-    }
+	public PsiElement getSourceElement()
+	{
+		return runFile;
+	}
 
-    protected RunnerAndConfigurationSettings createConfigurationByElement(Location location, ConfigurationContext context) {
-        PsiFile file = location.getPsiElement().getContainingFile();
-        if (!(file instanceof HaskellFile))
-            return null;
-        HaskellFile hsFile = (HaskellFile) file;
-        try {
-            VirtualFile virtualFile = file.getVirtualFile();
-            if (virtualFile == null)
-                return null;
-            if (!hasMain(virtualFile, context.getModule()))
-                return null;
-            runFile = hsFile;
-            Project project = file.getProject();
-            RunnerAndConfigurationSettings settings = cloneTemplateConfiguration(project, context);
-            HaskellRunConfiguration configuration = (HaskellRunConfiguration) settings.getConfiguration();
-            configuration.setMainFile(runFile);
-            VirtualFile baseDir = project.getBaseDir();
-            if (baseDir != null) {
-                configuration.setWorkingDirectory(baseDir.getPath());
-            }
-            configuration.setName(configuration.getGeneratedName());
-            return settings;
-        } catch (Exception ex) {
-            LOG.error(ex);
-        }
-        return null;
-    }
+	protected RunnerAndConfigurationSettings createConfigurationByElement(Location location, ConfigurationContext context)
+	{
+		PsiFile file = location.getPsiElement().getContainingFile();
+		if(!(file instanceof HaskellFile))
+		{
+			return null;
+		}
+		HaskellFile hsFile = (HaskellFile) file;
+		try
+		{
+			VirtualFile virtualFile = file.getVirtualFile();
+			if(virtualFile == null)
+			{
+				return null;
+			}
+			if(!hasMain(virtualFile, context.getModule()))
+			{
+				return null;
+			}
+			runFile = hsFile;
+			Project project = file.getProject();
+			RunnerAndConfigurationSettings settings = cloneTemplateConfiguration(project, context);
+			HaskellRunConfiguration configuration = (HaskellRunConfiguration) settings.getConfiguration();
+			configuration.setMainFile(runFile);
+			VirtualFile baseDir = project.getBaseDir();
+			if(baseDir != null)
+			{
+				configuration.setWorkingDirectory(baseDir.getPath());
+			}
+			configuration.setGeneratedName();
+			return settings;
+		}
+		catch(Exception ex)
+		{
+			LOG.error(ex);
+		}
+		return null;
+	}
 
-    static boolean hasMain(VirtualFile file, Module module) throws IOException, InterruptedException {
-        CompilerLocation compiler = CompilerLocation.get(module);
-        if (compiler == null) {
-            return false;
-        }
-        List<String> args = compiler.getCompileOptionsList(
-            "-m", "CheckMain",
-            file.getPath()
-        );
-        ProcessLauncher launcher = new ProcessLauncher(false, file.getInputStream(), args);
-        String stdOut = launcher.getStdOut();
-        return stdOut != null && stdOut.contains("t");
-    }
+	static boolean hasMain(VirtualFile file, Module module) throws IOException, InterruptedException
+	{
+		CompilerLocation compiler = CompilerLocation.get(module);
+		if(compiler == null)
+		{
+			return false;
+		}
+		List<String> args = compiler.getCompileOptionsList("-m", "CheckMain", file.getPath());
+		ProcessLauncher launcher = new ProcessLauncher(false, file.getInputStream(), args);
+		String stdOut = launcher.getStdOut();
+		return stdOut != null && stdOut.contains("t");
+	}
 
-    public int compareTo(Object o) {
-        return PREFERED;
-    }
+	public int compareTo(Object o)
+	{
+		return PREFERED;
+	}
 }
