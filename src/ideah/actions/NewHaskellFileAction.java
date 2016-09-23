@@ -1,6 +1,6 @@
 package ideah.actions;
 
-import org.consulo.haskell.module.extension.HaskellModuleExtension;
+import consulo.haskell.module.extension.HaskellModuleExtension;
 import org.jetbrains.annotations.NotNull;
 import com.intellij.CommonBundle;
 import com.intellij.ide.IdeView;

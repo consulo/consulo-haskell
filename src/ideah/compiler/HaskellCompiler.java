@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.consulo.haskell.module.extension.HaskellModuleExtension;
+import consulo.haskell.module.extension.HaskellModuleExtension;
 import org.jetbrains.annotations.NotNull;
 import com.intellij.compiler.impl.CompilerUtil;
 import com.intellij.openapi.compiler.CompileContext;

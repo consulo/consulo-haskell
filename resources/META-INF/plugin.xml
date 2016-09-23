@@ -85,8 +85,8 @@
 		<moduleExtensionProvider key="haskell"
 								 icon="/ideah/haskell_16x16.png"
 								 name="Haskell"
-								 mutableClass="org.consulo.haskell.module.extension.HaskellMutableModuleExtension"
-								 immutableClass="org.consulo.haskell.module.extension.HaskellModuleExtension" />
+								 mutableClass="consulo.haskell.module.extension.HaskellMutableModuleExtension"
+								 immutableClass="consulo.haskell.module.extension.HaskellModuleExtension" />
 
 		<configurationType implementation="ideah.run.HaskellRunConfigurationType"/>
 		<configurationProducer implementation="ideah.run.HaskellRunConfigurationProducer"/>

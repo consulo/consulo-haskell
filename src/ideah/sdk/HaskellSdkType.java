@@ -12,7 +12,7 @@ import java.util.Map;
 
 import javax.swing.Icon;
 
-import org.consulo.haskell.HaskellIcons;
+import consulo.haskell.HaskellIcons;
 import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

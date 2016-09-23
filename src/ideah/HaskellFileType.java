@@ -4,7 +4,7 @@ import java.nio.charset.Charset;
 
 import javax.swing.Icon;
 
-import org.consulo.haskell.HaskellIcons;
+import consulo.haskell.HaskellIcons;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.intellij.lang.Language;

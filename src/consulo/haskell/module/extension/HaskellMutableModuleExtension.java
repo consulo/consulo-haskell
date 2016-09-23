@@ -1,4 +1,4 @@
-package org.consulo.haskell.module.extension;
+package consulo.haskell.module.extension;
 
 import javax.swing.JComponent;
 

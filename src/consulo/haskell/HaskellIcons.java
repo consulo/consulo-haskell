@@ -1,4 +1,4 @@
-package org.consulo.haskell;
+package consulo.haskell;
 
 import javax.swing.Icon;
 

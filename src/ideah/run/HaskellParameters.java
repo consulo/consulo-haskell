@@ -5,7 +5,7 @@ import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.vfs.VirtualFile;
-import org.consulo.haskell.module.extension.HaskellModuleExtension;
+import consulo.haskell.module.extension.HaskellModuleExtension;
 import org.jetbrains.annotations.NotNull;
 
 final class HaskellParameters extends SimpleProgramParameters {

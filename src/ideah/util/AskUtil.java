@@ -9,7 +9,7 @@ import com.intellij.openapi.projectRoots.SdkAdditionalData;
 import com.intellij.openapi.util.io.StreamUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import ideah.sdk.HaskellSdkAdditionalData;
-import org.consulo.haskell.module.extension.HaskellModuleExtension;
+import consulo.haskell.module.extension.HaskellModuleExtension;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

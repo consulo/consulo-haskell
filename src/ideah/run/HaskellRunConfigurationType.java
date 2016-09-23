@@ -2,8 +2,8 @@ package ideah.run;
 
 import javax.swing.Icon;
 
-import org.consulo.haskell.HaskellIcons;
-import org.consulo.haskell.module.extension.HaskellModuleExtension;
+import consulo.haskell.HaskellIcons;
+import consulo.haskell.module.extension.HaskellModuleExtension;
 import org.jetbrains.annotations.NotNull;
 import com.intellij.execution.configuration.ConfigurationFactoryEx;
 import com.intellij.execution.configurations.ConfigurationFactory;

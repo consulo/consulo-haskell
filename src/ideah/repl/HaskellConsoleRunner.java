@@ -8,7 +8,7 @@ import java.util.Arrays;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-import org.consulo.haskell.module.extension.HaskellModuleExtension;
+import consulo.haskell.module.extension.HaskellModuleExtension;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.intellij.execution.CantRunException;
