@@ -1,17 +1,17 @@
 package ideah.parser;
 
+import org.jetbrains.annotations.NotNull;
 import com.intellij.lang.ASTNode;
-import com.intellij.lang.LanguageVersion;
 import com.intellij.lang.ParserDefinition;
 import com.intellij.lang.PsiParser;
 import com.intellij.lexer.Lexer;
-import com.intellij.openapi.project.Project;
 import com.intellij.psi.FileViewProvider;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.IFileElementType;
 import com.intellij.psi.tree.TokenSet;
+import consulo.lang.LanguageVersion;
 import ideah.HaskellFileType;
 import ideah.lexer.HaskellLexer;
 import ideah.lexer.HaskellTokenTypes;
@@ -19,18 +19,17 @@ import ideah.psi.impl.HPIdentImpl;
 import ideah.psi.impl.HPInfixPrefixIdentImpl;
 import ideah.psi.impl.HPModuleImpl;
 import ideah.psi.impl.HPOtherImpl;
-import org.jetbrains.annotations.NotNull;
 
 public final class HaskellParserDefinition implements ParserDefinition, HaskellTokenTypes {
 
     public static final IFileElementType HASKELL_FILE = new IFileElementType(HaskellFileType.HASKELL_LANGUAGE);
 
     @NotNull
-    public Lexer createLexer(Project project, LanguageVersion languageVersion) {
+    public Lexer createLexer(LanguageVersion languageVersion) {
         return new HaskellLexer();
     }
 
-    public PsiParser createParser(Project project, LanguageVersion languageVersion) {
+    public PsiParser createParser(LanguageVersion languageVersion) {
         return new HaskellParser();
     }
 

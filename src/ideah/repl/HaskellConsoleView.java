@@ -1,19 +1,26 @@
 package ideah.repl;
 
-import com.intellij.execution.console.LanguageConsoleViewImpl;
-import com.intellij.execution.process.ConsoleHistoryModel;
+import org.jetbrains.annotations.NotNull;
+import com.intellij.execution.console.LanguageConsoleImpl;
 import com.intellij.openapi.project.Project;
+import ideah.HaskellLanguage;
 
-public final class HaskellConsoleView extends LanguageConsoleViewImpl {
+public final class HaskellConsoleView extends LanguageConsoleImpl
+{
+	private HaskellConsoleExecuteActionHandler myExecuteHandler;
 
-    HaskellConsoleView(Project project,
-                       String title,
-                       ConsoleHistoryModel historyModel) {
-        super(new HaskellConsole(project, title, historyModel));
-    }
+	public HaskellConsoleView(@NotNull Project project, @NotNull String title)
+	{
+		super(project, title, HaskellLanguage.INSTANCE);
+	}
 
-    @Override
-    public HaskellConsole getConsole() {
-        return (HaskellConsole) super.getConsole();
-    }
+	public void setExecuteHandler(HaskellConsoleExecuteActionHandler executeHandler)
+	{
+		myExecuteHandler = executeHandler;
+	}
+
+	public HaskellConsoleExecuteActionHandler getExecuteHandler()
+	{
+		return myExecuteHandler;
+	}
 }

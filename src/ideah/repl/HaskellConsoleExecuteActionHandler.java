@@ -1,7 +1,9 @@
 package ideah.repl;
 
+import java.io.IOException;
+import java.io.OutputStream;
+
 import com.intellij.execution.console.LanguageConsoleImpl;
-import com.intellij.execution.process.ConsoleHistoryModel;
 import com.intellij.execution.process.ProcessHandler;
 import com.intellij.openapi.application.Result;
 import com.intellij.openapi.command.WriteCommandAction;
@@ -11,9 +13,6 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.openapi.util.text.StringUtil;
-
-import java.io.IOException;
-import java.io.OutputStream;
 
 public final class HaskellConsoleExecuteActionHandler {
 
@@ -31,7 +30,7 @@ public final class HaskellConsoleExecuteActionHandler {
         //myIndentHelper = IndentHelper.getInstance();
     }
 
-    void processLine(String line) {
+    public void processLine(String line) {
         OutputStream os = processHandler.getProcessInput();
         if (os != null) {
             try {
@@ -44,11 +43,10 @@ public final class HaskellConsoleExecuteActionHandler {
         }
     }
 
-    public void runExecuteAction(final HaskellConsole console,
+    public void runExecuteAction(final HaskellConsoleView console,
                                  boolean executeImmediately) {
-        ConsoleHistoryModel consoleHistoryModel = console.getHistoryModel();
         if (executeImmediately) {
-            execute(console, consoleHistoryModel);
+            execute(console);
             return;
         }
 
@@ -84,22 +82,19 @@ public final class HaskellConsoleExecuteActionHandler {
 //        } else {
 //            console.setInputText(text + "\n");
 //        }
-        execute(console, consoleHistoryModel);
+        execute(console);
     }
 
-    private void execute(LanguageConsoleImpl languageConsole,
-                         ConsoleHistoryModel consoleHistoryModel) {
+    private void execute(LanguageConsoleImpl languageConsole) {
         // Process input and add to history
         Document document = languageConsole.getCurrentEditor().getDocument();
         String text = document.getText();
         TextRange range = new TextRange(0, document.getTextLength());
 
         languageConsole.getCurrentEditor().getSelectionModel().setSelection(range.getStartOffset(), range.getEndOffset());
-        languageConsole.addCurrentToHistory(range, false, preserveMarkup);
+        languageConsole.addToHistory(range, languageConsole.getCurrentEditor(), preserveMarkup);
         languageConsole.setInputText("");
-        if (!StringUtil.isEmptyOrSpaces(text)) {
-            consoleHistoryModel.addToHistory(text);
-        }
+
         // Send to interpreter / server
         processLine(text);
     }

@@ -24,7 +24,7 @@ public final class HaskellConsoleProcessHandler extends ColoredProcessHandler
 	public void coloredTextAvailable(String text, Key attributes)
 	{
 		String string = processPrompts(myConsole, StringUtil.convertLineSeparators(text));
-		myConsole.printToHistory(string, ConsoleViewContentType.getConsoleViewType(attributes).getAttributes());
+		myConsole.print(string, ConsoleViewContentType.getConsoleViewType(attributes));
 	}
 
 	private static String processPrompts(LanguageConsoleImpl console, String text)

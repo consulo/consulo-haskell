@@ -5,12 +5,12 @@ import javax.swing.Icon;
 import org.consulo.haskell.HaskellIcons;
 import org.consulo.haskell.module.extension.HaskellModuleExtension;
 import org.jetbrains.annotations.NotNull;
-import org.mustbe.consulo.module.extension.ModuleExtensionHelper;
 import com.intellij.execution.configuration.ConfigurationFactoryEx;
 import com.intellij.execution.configurations.ConfigurationFactory;
 import com.intellij.execution.configurations.ConfigurationType;
 import com.intellij.execution.configurations.RunConfiguration;
 import com.intellij.openapi.project.Project;
+import consulo.module.extension.ModuleExtensionHelper;
 
 public final class HaskellRunConfigurationType implements ConfigurationType
 {

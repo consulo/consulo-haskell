@@ -1,5 +1,7 @@
 package ideah.repl;
 
+import javax.swing.Icon;
+
 import com.intellij.codeInsight.lookup.Lookup;
 import com.intellij.codeInsight.lookup.LookupManager;
 import com.intellij.execution.process.ProcessHandler;
@@ -9,17 +11,15 @@ import com.intellij.openapi.editor.ex.EditorEx;
 import com.intellij.openapi.project.DumbAwareAction;
 import com.intellij.openapi.util.IconLoader;
 
-import javax.swing.*;
-
 abstract class HaskellExecuteActionBase extends DumbAwareAction {
 
     private static final Icon ICON = IconLoader.getIcon("/ideah/haskell_16x16.png"); // todo: other icon?
 
-    protected final HaskellConsole console;
+    protected final HaskellConsoleView console;
     protected final ProcessHandler processHandler;
     protected final HaskellConsoleExecuteActionHandler executeHandler;
 
-    protected HaskellExecuteActionBase(HaskellConsole languageConsole,
+    protected HaskellExecuteActionBase(HaskellConsoleView languageConsole,
                                        ProcessHandler processHandler,
                                        HaskellConsoleExecuteActionHandler executeHandler,
                                        String actionId) {

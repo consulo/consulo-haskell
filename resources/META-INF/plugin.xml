@@ -1,12 +1,10 @@
-<idea-plugin version="2" url="http://code.google.com/p/ideah/">
-	<id>org.consulo.haskell</id>
+<idea-plugin>
+	<id>consulo.haskell</id>
 	<name>Haskell</name>
 	<description>Support for Haskell language</description>
 	<category>Custom Languages</category>
-	<version>10.</version>
-	<vendor url="http://code.google.com/p/ideah/" email="ideah.plugin@gmail.com">
-		ideah.plugin@gmail.com
-	</vendor>
+	<version>SNAPSHOT</version>
+	<vendor url="http://code.google.com/p/ideah/" email="ideah.plugin@gmail.com">ideah.plugin@gmail.com</vendor>
 
 	<application-components>
 		<component>

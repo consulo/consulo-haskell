@@ -1,5 +1,8 @@
 package ideah.repl.actions;
 
+import java.util.Collection;
+
+import org.jetbrains.annotations.NotNull;
 import com.intellij.execution.ExecutionHelper;
 import com.intellij.execution.console.LanguageConsoleImpl;
 import com.intellij.execution.process.ProcessHandler;
@@ -19,10 +22,10 @@ import com.intellij.psi.PsiFile;
 import com.intellij.testFramework.LightVirtualFile;
 import com.intellij.util.NotNullFunction;
 import ideah.parser.HaskellFile;
-import ideah.repl.*;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Collection;
+import ideah.repl.HaskellConsoleExecuteActionHandler;
+import ideah.repl.HaskellConsoleProcessHandler;
+import ideah.repl.HaskellConsoleRunner;
+import ideah.repl.HaskellConsoleView;
 
 abstract class HaskellConsoleActionBase extends AnAction {
 
@@ -64,7 +67,7 @@ abstract class HaskellConsoleActionBase extends AnAction {
         CaretModel caretModel = editor.getCaretModel();
         caretModel.moveToOffset(command.length());
 
-        HaskellConsole console = (HaskellConsole) languageConsole;
+        HaskellConsoleView console = (HaskellConsoleView) languageConsole;
         HaskellConsoleExecuteActionHandler handler = console.getExecuteHandler();
 
         handler.runExecuteAction(console, true);
@@ -111,7 +114,7 @@ abstract class HaskellConsoleActionBase extends AnAction {
         }
 
         LanguageConsoleImpl console = handler.getLanguageConsole();
-        if (!(console instanceof HaskellConsole)) {
+        if (!(console instanceof HaskellConsoleView)) {
             presentation.setEnabled(false);
             return;
         }

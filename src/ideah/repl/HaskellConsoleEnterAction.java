@@ -5,7 +5,7 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 
 final class HaskellConsoleEnterAction extends HaskellExecuteActionBase {
 
-    HaskellConsoleEnterAction(HaskellConsole languageConsole,
+    HaskellConsoleEnterAction(HaskellConsoleView languageConsole,
                               ProcessHandler processHandler,
                               HaskellConsoleExecuteActionHandler executeHandler) {
         super(languageConsole, processHandler, executeHandler, HaskellConsoleRunner.EXECUTE_ACTION_ID);

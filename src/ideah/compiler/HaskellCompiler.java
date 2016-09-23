@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.consulo.compiler.impl.resourceCompiler.ResourceCompilerConfiguration;
 import org.consulo.haskell.module.extension.HaskellModuleExtension;
 import org.jetbrains.annotations.NotNull;
 import com.intellij.compiler.impl.CompilerUtil;
@@ -30,6 +29,7 @@ import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.util.Chunk;
+import consulo.compiler.impl.resourceCompiler.ResourceCompilerConfiguration;
 import ideah.HaskellFileType;
 import ideah.sdk.HaskellSdkType;
 import ideah.util.CompilerLocation;

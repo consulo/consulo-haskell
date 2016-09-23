@@ -20,8 +20,8 @@ import com.intellij.execution.ExecutorRegistry;
 import com.intellij.execution.configurations.CommandLineTokenizer;
 import com.intellij.execution.configurations.GeneralCommandLine;
 import com.intellij.execution.console.ConsoleHistoryController;
+import com.intellij.execution.console.LanguageConsoleImpl;
 import com.intellij.execution.executors.DefaultRunExecutor;
-import com.intellij.execution.process.ConsoleHistoryModel;
 import com.intellij.execution.process.ProcessAdapter;
 import com.intellij.execution.process.ProcessEvent;
 import com.intellij.execution.process.ProcessHandler;
@@ -51,227 +51,248 @@ import ideah.sdk.HaskellSdkAdditionalData;
 import ideah.sdk.HaskellSdkType;
 import ideah.util.GHCUtil;
 
-public final class HaskellConsoleRunner {
+public final class HaskellConsoleRunner
+{
 
-    static final String REPL_TITLE = "GHCi";
+	static final String REPL_TITLE = "GHCi";
 
-    static final String EXECUTE_ACTION_IMMEDIATELY_ID = "Haskell.Console.Execute.Immediately";
-    static final String EXECUTE_ACTION_ID = "Haskell.Console.Execute";
+	static final String EXECUTE_ACTION_IMMEDIATELY_ID = "Haskell.Console.Execute.Immediately";
+	static final String EXECUTE_ACTION_ID = "Haskell.Console.Execute";
 
-    private final Module module;
-    private final Project project;
-    private final String consoleTitle;
-    private final String workingDir;
-    private final ConsoleHistoryModel historyModel;
+	private final Module module;
+	private final Project project;
+	private final String consoleTitle;
+	private final String workingDir;
 
-    private HaskellConsoleView consoleView;
-    private HaskellConsoleProcessHandler processHandler;
+	private HaskellConsoleView consoleView;
+	private HaskellConsoleProcessHandler processHandler;
 
-    private HaskellConsoleExecuteActionHandler executeHandler;
-    private AnAction runAction;
+	private HaskellConsoleExecuteActionHandler executeHandler;
+	private AnAction runAction;
 
-    private HaskellConsoleRunner(@NotNull Module module,
-                                 @NotNull String consoleTitle,
-                                 @Nullable String workingDir) {
-        this.module = module;
-        this.project = module.getProject();
-        this.consoleTitle = consoleTitle;
-        this.workingDir = workingDir;
-        this.historyModel = new ConsoleHistoryModel();
-    }
+	private HaskellConsoleRunner(@NotNull Module module, @NotNull String consoleTitle, @Nullable String workingDir)
+	{
+		this.module = module;
+		this.project = module.getProject();
+		this.consoleTitle = consoleTitle;
+		this.workingDir = workingDir;
+	}
 
-    public static HaskellConsoleProcessHandler run(@NotNull Module module) {
-        String srcRoot = ModuleRootManager.getInstance(module).getContentRoots()[0].getPath();
-        String path = srcRoot + File.separator + "src";
-        return run(module, path);
-    }
+	public static HaskellConsoleProcessHandler run(@NotNull Module module)
+	{
+		String srcRoot = ModuleRootManager.getInstance(module).getContentRoots()[0].getPath();
+		String path = srcRoot + File.separator + "src";
+		return run(module, path);
+	}
 
-    public static HaskellConsoleProcessHandler run(@NotNull Module module,
-                                                   String workingDir,
-                                                   String... statements2execute) {
-        HaskellConsoleRunner runner = new HaskellConsoleRunner(module, REPL_TITLE, workingDir);
-        try {
-            return runner.initAndRun(statements2execute);
-        } catch (ExecutionException e) {
-            ExecutionHelper.showErrors(module.getProject(), Arrays.<Exception>asList(e), REPL_TITLE, null);
-            return null;
-        }
-    }
+	public static HaskellConsoleProcessHandler run(@NotNull Module module, String workingDir, String... statements2execute)
+	{
+		HaskellConsoleRunner runner = new HaskellConsoleRunner(module, REPL_TITLE, workingDir);
+		try
+		{
+			return runner.initAndRun(statements2execute);
+		}
+		catch(ExecutionException e)
+		{
+			ExecutionHelper.showErrors(module.getProject(), Arrays.<Exception>asList(e), REPL_TITLE, null);
+			return null;
+		}
+	}
 
-    private HaskellConsoleProcessHandler initAndRun(String... statements2execute) throws ExecutionException {
-        // Create Server process
-        GeneralCommandLine cmdline = createCommandLine(module, workingDir);
-        Process process = cmdline.createProcess();
-        // !!! do not change order!!!
-        consoleView = createConsoleView();
-        String commandLine = cmdline.getCommandLineString();
-        processHandler = new HaskellConsoleProcessHandler(process, commandLine, getLanguageConsole());
-        executeHandler = new HaskellConsoleExecuteActionHandler(processHandler, project, false);
-        getLanguageConsole().setExecuteHandler(executeHandler);
+	private HaskellConsoleProcessHandler initAndRun(String... statements2execute) throws ExecutionException
+	{
+		// Create Server process
+		GeneralCommandLine cmdline = createCommandLine(module, workingDir);
+		Process process = cmdline.createProcess();
+		// !!! do not change order!!!
+		consoleView = createConsoleView();
+		String commandLine = cmdline.getCommandLineString();
+		processHandler = new HaskellConsoleProcessHandler(process, commandLine, getLanguageConsole());
+		executeHandler = new HaskellConsoleExecuteActionHandler(processHandler, project, false);
+		getLanguageConsole().attachToProcess(processHandler);
 
-        // Init a console view
-        ProcessTerminatedListener.attach(processHandler);
+		consoleView.setExecuteHandler(executeHandler);
 
-        processHandler.addProcessListener(new ProcessAdapter() {
-            @Override
-            public void processTerminated(ProcessEvent event) {
-                runAction.getTemplatePresentation().setEnabled(false);
-                consoleView.getConsole().setPrompt("");
-                consoleView.getConsole().getConsoleEditor().setRendererMode(true);
-                ApplicationManager.getApplication().invokeLater(new Runnable() {
-                    public void run() {
-                        consoleView.getConsole().getConsoleEditor().getComponent().updateUI();
-                    }
-                });
-            }
-        });
+		// Init a console view
+		ProcessTerminatedListener.attach(processHandler);
 
-        // Attach a console view to the process
-        consoleView.attachToProcess(processHandler);
+		processHandler.addProcessListener(new ProcessAdapter()
+		{
+			@Override
+			public void processTerminated(ProcessEvent event)
+			{
+				runAction.getTemplatePresentation().setEnabled(false);
+				consoleView.setPrompt("");
+				consoleView.getConsoleEditor().setRendererMode(true);
+				ApplicationManager.getApplication().invokeLater(new Runnable()
+				{
+					public void run()
+					{
+						consoleView.getConsoleEditor().getComponent().updateUI();
+					}
+				});
+			}
+		});
 
-        // Runner creating
-        Executor defaultExecutor = ExecutorRegistry.getInstance().getExecutorById(DefaultRunExecutor.EXECUTOR_ID);
-        DefaultActionGroup toolbarActions = new DefaultActionGroup();
-        ActionToolbar actionToolbar = ActionManager.getInstance().createActionToolbar(ActionPlaces.UNKNOWN, toolbarActions, false);
+		// Attach a console view to the process
+		consoleView.attachToProcess(processHandler);
 
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.add(actionToolbar.getComponent(), BorderLayout.WEST);
-        panel.add(consoleView.getComponent(), BorderLayout.CENTER);
+		// Runner creating
+		Executor defaultExecutor = ExecutorRegistry.getInstance().getExecutorById(DefaultRunExecutor.EXECUTOR_ID);
+		DefaultActionGroup toolbarActions = new DefaultActionGroup();
+		ActionToolbar actionToolbar = ActionManager.getInstance().createActionToolbar(ActionPlaces.UNKNOWN, toolbarActions, false);
 
-        RunContentDescriptor myDescriptor =
-            new RunContentDescriptor(consoleView, processHandler, panel, consoleTitle);
+		JPanel panel = new JPanel(new BorderLayout());
+		panel.add(actionToolbar.getComponent(), BorderLayout.WEST);
+		panel.add(consoleView.getComponent(), BorderLayout.CENTER);
 
-        // tool bar actions
-        AnAction[] actions = fillToolBarActions(toolbarActions, defaultExecutor, myDescriptor);
-        registerActionShortcuts(actions, getLanguageConsole().getConsoleEditor().getComponent());
-        registerActionShortcuts(actions, panel);
-        panel.updateUI();
+		RunContentDescriptor myDescriptor = new RunContentDescriptor(consoleView, processHandler, panel, consoleTitle);
 
-        // enter action
-        createAndRegisterEnterAction(panel);
+		// tool bar actions
+		AnAction[] actions = fillToolBarActions(toolbarActions, defaultExecutor, myDescriptor);
+		registerActionShortcuts(actions, getLanguageConsole().getConsoleEditor().getComponent());
+		registerActionShortcuts(actions, panel);
+		panel.updateUI();
 
-        // Show in run tool window
-        ExecutionManager.getInstance(project).getContentManager().showRunContent(defaultExecutor, myDescriptor);
+		// enter action
+		createAndRegisterEnterAction(panel);
 
-        // Request focus
-        ToolWindow window = ToolWindowManager.getInstance(project).getToolWindow(defaultExecutor.getId());
-        if (window != null) {
-            window.activate(new Runnable() {
-                public void run() {
-                    IdeFocusManager.getInstance(project).requestFocus(getLanguageConsole().getCurrentEditor().getContentComponent(), true);
-                }
-            });
-        }
+		// Show in run tool window
+		ExecutionManager.getInstance(project).getContentManager().showRunContent(defaultExecutor, myDescriptor);
 
-        // Run
-        processHandler.startNotify();
+		// Request focus
+		ToolWindow window = ToolWindowManager.getInstance(project).getToolWindow(defaultExecutor.getId());
+		if(window != null)
+		{
+			window.activate(new Runnable()
+			{
+				public void run()
+				{
+					IdeFocusManager.getInstance(project).requestFocus(getLanguageConsole().getCurrentEditor().getContentComponent(), true);
+				}
+			});
+		}
 
-        HaskellConsole console = consoleView.getConsole();
-        for (String statement : statements2execute) {
-            String st = statement + "\n";
-			console.printToHistory(st, ConsoleViewContentType.SYSTEM_OUTPUT.getAttributes());
-            executeHandler.processLine(st);
-        }
+		// Run
+		processHandler.startNotify();
 
-        return processHandler;
-    }
+		LanguageConsoleImpl console = consoleView;
+		for(String statement : statements2execute)
+		{
+			String st = statement + "\n";
+			console.print(st, ConsoleViewContentType.SYSTEM_OUTPUT);
+			executeHandler.processLine(st);
+		}
 
-    private void createAndRegisterEnterAction(JPanel panel) {
-        AnAction enterAction = new HaskellConsoleEnterAction(getLanguageConsole(), processHandler, executeHandler);
-        enterAction.registerCustomShortcutSet(enterAction.getShortcutSet(), getLanguageConsole().getConsoleEditor().getComponent());
-        enterAction.registerCustomShortcutSet(enterAction.getShortcutSet(), panel);
-    }
+		return processHandler;
+	}
 
-    private static void registerActionShortcuts(AnAction[] actions, JComponent component) {
-        for (AnAction action : actions) {
-            if (action.getShortcutSet() != null) {
-                action.registerCustomShortcutSet(action.getShortcutSet(), component);
-            }
-        }
-    }
+	private void createAndRegisterEnterAction(JPanel panel)
+	{
+		AnAction enterAction = new HaskellConsoleEnterAction(getLanguageConsole(), processHandler, executeHandler);
+		enterAction.registerCustomShortcutSet(enterAction.getShortcutSet(), getLanguageConsole().getConsoleEditor().getComponent());
+		enterAction.registerCustomShortcutSet(enterAction.getShortcutSet(), panel);
+	}
 
-    private AnAction[] fillToolBarActions(DefaultActionGroup toolbarActions,
-                                          Executor defaultExecutor,
-                                          RunContentDescriptor myDescriptor) {
+	private static void registerActionShortcuts(AnAction[] actions, JComponent component)
+	{
+		for(AnAction action : actions)
+		{
+			if(action.getShortcutSet() != null)
+			{
+				action.registerCustomShortcutSet(action.getShortcutSet(), component);
+			}
+		}
+	}
 
-        ArrayList<AnAction> actionList = new ArrayList<AnAction>();
+	private AnAction[] fillToolBarActions(DefaultActionGroup toolbarActions, Executor defaultExecutor, RunContentDescriptor myDescriptor)
+	{
 
-        //stop
-        AnAction stopAction = createStopAction();
-        actionList.add(stopAction);
+		ArrayList<AnAction> actionList = new ArrayList<AnAction>();
 
-        //close
-        AnAction closeAction = createCloseAction(defaultExecutor, myDescriptor);
-        actionList.add(closeAction);
+		//stop
+		AnAction stopAction = createStopAction();
+		actionList.add(stopAction);
 
-        // run and history actions
-        ArrayList<AnAction> executionActions = createConsoleExecActions(getLanguageConsole(),
-            processHandler, executeHandler, historyModel);
-        runAction = executionActions.get(0);
-        actionList.addAll(executionActions);
+		//close
+		AnAction closeAction = createCloseAction(defaultExecutor, myDescriptor);
+		actionList.add(closeAction);
 
-        // help action
-        actionList.add(CommonActionsManager.getInstance().createHelpAction("interactive_console"));
+		// run and history actions
+		ArrayList<AnAction> executionActions = createConsoleExecActions(getLanguageConsole(), processHandler, executeHandler);
+		runAction = executionActions.get(0);
+		actionList.addAll(executionActions);
 
-        AnAction[] actions = actionList.toArray(new AnAction[actionList.size()]);
-        toolbarActions.addAll(actions);
-        return actions;
-    }
+		// help action
+		actionList.add(CommonActionsManager.getInstance().createHelpAction("interactive_console"));
 
-    private static ArrayList<AnAction> createConsoleExecActions(HaskellConsole languageConsole,
-                                                                ProcessHandler processHandler,
-                                                                HaskellConsoleExecuteActionHandler executeHandler,
-                                                                ConsoleHistoryModel historyModel) {
-        AnAction runImmediatelyAction = new HaskellExecuteImmediatelyAction(languageConsole, processHandler, executeHandler);
+		AnAction[] actions = actionList.toArray(new AnAction[actionList.size()]);
+		toolbarActions.addAll(actions);
+		return actions;
+	}
 
-        ConsoleHistoryController historyController = new ConsoleHistoryController("haskell", null, languageConsole, historyModel);
-        historyController.install();
+	private static ArrayList<AnAction> createConsoleExecActions(HaskellConsoleView languageConsole, ProcessHandler processHandler, HaskellConsoleExecuteActionHandler executeHandler)
+	{
+		AnAction runImmediatelyAction = new HaskellExecuteImmediatelyAction(languageConsole, processHandler, executeHandler);
 
-        AnAction upAction = historyController.getHistoryPrev();
-        AnAction downAction = historyController.getHistoryNext();
+		ConsoleHistoryController historyController = new ConsoleHistoryController("haskell", null, languageConsole);
+		historyController.install();
 
-        ArrayList<AnAction> list = new ArrayList<AnAction>();
-        list.add(runImmediatelyAction);
-        list.add(downAction);
-        list.add(upAction);
-        return list;
-    }
+		AnAction upAction = historyController.getHistoryPrev();
+		AnAction downAction = historyController.getHistoryNext();
 
-    private AnAction createCloseAction(Executor defaultExecutor, RunContentDescriptor myDescriptor) {
-        return new CloseAction(defaultExecutor, myDescriptor, project);
-    }
+		ArrayList<AnAction> list = new ArrayList<AnAction>();
+		list.add(runImmediatelyAction);
+		list.add(downAction);
+		list.add(upAction);
+		return list;
+	}
 
-    private static AnAction createStopAction() {
-        return ActionManager.getInstance().getAction(IdeActions.ACTION_STOP_PROGRAM);
-    }
+	private AnAction createCloseAction(Executor defaultExecutor, RunContentDescriptor myDescriptor)
+	{
+		return new CloseAction(defaultExecutor, myDescriptor, project);
+	}
 
-    private HaskellConsoleView createConsoleView() {
-        return new HaskellConsoleView(project, consoleTitle, historyModel);
-    }
+	private static AnAction createStopAction()
+	{
+		return ActionManager.getInstance().getAction(IdeActions.ACTION_STOP_PROGRAM);
+	}
 
-    private static GeneralCommandLine createCommandLine(Module module, String workingDir) throws CantRunException {
-        Sdk sdk = ModuleUtilCore.getSdk(module, HaskellModuleExtension.class);
-        VirtualFile homePath;
-        if (sdk == null || !(sdk.getSdkType() instanceof HaskellSdkType) || sdk.getHomePath() == null) {
-            throw new CantRunException("Invalid SDK Home path set. Please set your SDK path correctly.");
-        } else {
-            homePath = sdk.getHomeDirectory();
-        }
-        GeneralCommandLine line = new GeneralCommandLine();
-        line.setExePath(GHCUtil.getCommandPath(homePath, "ghci"));
-        line.setWorkDirectory(workingDir);
-        SdkAdditionalData sdkAdditionalData = sdk.getSdkAdditionalData();
-        if (sdkAdditionalData instanceof HaskellSdkAdditionalData) {
-            HaskellSdkAdditionalData data = (HaskellSdkAdditionalData) sdkAdditionalData;
-            CommandLineTokenizer tokenizer = new CommandLineTokenizer(data.getGhcOptions());
-            while (tokenizer.hasMoreTokens()) {
-                line.addParameter(tokenizer.nextToken());
-            }
-        }
-        return line;
-    }
+	private HaskellConsoleView createConsoleView()
+	{
+		return new HaskellConsoleView(project, consoleTitle);
+	}
 
-    private HaskellConsole getLanguageConsole() {
-        return consoleView.getConsole();
-    }
+	private static GeneralCommandLine createCommandLine(Module module, String workingDir) throws CantRunException
+	{
+		Sdk sdk = ModuleUtilCore.getSdk(module, HaskellModuleExtension.class);
+		VirtualFile homePath;
+		if(sdk == null || !(sdk.getSdkType() instanceof HaskellSdkType) || sdk.getHomePath() == null)
+		{
+			throw new CantRunException("Invalid SDK Home path set. Please set your SDK path correctly.");
+		}
+		else
+		{
+			homePath = sdk.getHomeDirectory();
+		}
+		GeneralCommandLine line = new GeneralCommandLine();
+		line.setExePath(GHCUtil.getCommandPath(homePath, "ghci"));
+		line.setWorkDirectory(workingDir);
+		SdkAdditionalData sdkAdditionalData = sdk.getSdkAdditionalData();
+		if(sdkAdditionalData instanceof HaskellSdkAdditionalData)
+		{
+			HaskellSdkAdditionalData data = (HaskellSdkAdditionalData) sdkAdditionalData;
+			CommandLineTokenizer tokenizer = new CommandLineTokenizer(data.getGhcOptions());
+			while(tokenizer.hasMoreTokens())
+			{
+				line.addParameter(tokenizer.nextToken());
+			}
+		}
+		return line;
+	}
+
+	private HaskellConsoleView getLanguageConsole()
+	{
+		return consoleView;
+	}
 }
