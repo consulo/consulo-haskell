@@ -1,9 +1,16 @@
 package ideah.lexer;
 
-import org.apache.commons.lang.StringUtils;
-import org.jetbrains.annotations.Nullable;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Deque;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import java.util.*;
+import org.jetbrains.annotations.Nullable;
+import com.intellij.openapi.util.text.StringUtil;
 
 final class HaskellLexerImpl implements HaskellTokenTypes, Escaping {
 
@@ -355,7 +362,7 @@ final class HaskellLexerImpl implements HaskellTokenTypes, Escaping {
             if (type == VAR_ID && parts.size() == 1 && STANDARD_FUNCTIONS.contains(parts.get(0))) {
                 return new HaskellToken(STD_FUNCTION, parts.get(0), coords);
             } else {
-                String name = StringUtils.join(parts, '.');
+                String name = StringUtil.join(parts, ".");
                 return new HaskellToken(type, name, coords);
             }
         }
@@ -837,7 +844,7 @@ final class HaskellLexerImpl implements HaskellTokenTypes, Escaping {
         if (parts.size() == 1) {
             module = null;
         } else {
-            module = StringUtils.join(parts.subList(0, n1), '.');
+            module = StringUtil.join(parts.subList(0, n1), ".");
         }
         return new LexedIdentifier(id.type, module, lastPart);
     }
