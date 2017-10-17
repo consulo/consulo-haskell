@@ -1,6 +1,5 @@
 package ideah.actions;
 
-import consulo.haskell.module.extension.HaskellModuleExtension;
 import org.jetbrains.annotations.NotNull;
 import com.intellij.CommonBundle;
 import com.intellij.ide.IdeView;
@@ -20,6 +19,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiFileFactory;
 import com.intellij.util.IncorrectOperationException;
+import consulo.haskell.module.extension.HaskellModuleExtension;
 import ideah.HaskellFileType;
 import ideah.util.DeclarationPosition;
 
@@ -117,12 +117,12 @@ public final class NewHaskellFileAction extends CreateElementActionBase {
         if (!super.isAvailable(dataContext))
             return false;
 
-        Project project = PlatformDataKeys.PROJECT.getData(dataContext);
+        Project project = dataContext.getData(PlatformDataKeys.PROJECT);
         if (project == null) {
             return false;
         }
 
-        IdeView view = LangDataKeys.IDE_VIEW.getData(dataContext);
+        IdeView view = dataContext.getData(LangDataKeys.IDE_VIEW);
         if (view == null) {
             return false;
         }
