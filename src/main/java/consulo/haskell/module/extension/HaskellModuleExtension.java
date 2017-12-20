@@ -2,7 +2,7 @@ package consulo.haskell.module.extension;
 
 import org.jetbrains.annotations.NotNull;
 import com.intellij.openapi.projectRoots.SdkType;
-import consulo.extension.impl.ModuleExtensionWithSdkImpl;
+import consulo.module.extension.impl.ModuleExtensionWithSdkImpl;
 import consulo.roots.ModuleRootLayer;
 import ideah.sdk.HaskellSdkType;
 

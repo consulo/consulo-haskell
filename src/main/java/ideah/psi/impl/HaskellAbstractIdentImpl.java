@@ -1,5 +1,8 @@
 package ideah.psi.impl;
 
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.progress.ProcessCanceledException;
@@ -17,9 +20,6 @@ import ideah.parser.HaskellElementTypes;
 import ideah.psi.api.util.HaskellPsiElementFactory;
 import ideah.util.DeclarationPosition;
 import ideah.util.LineCol;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public abstract class HaskellAbstractIdentImpl extends HaskellBaseElementImpl implements PsiReference {
 
@@ -134,11 +134,6 @@ public abstract class HaskellAbstractIdentImpl extends HaskellBaseElementImpl im
 
     public boolean isReferenceTo(PsiElement element) {
         return false; // todo
-    }
-
-    @NotNull
-    public Object[] getVariants() {
-        return new Object[0]; // todo
     }
 
     public boolean isSoft() {
