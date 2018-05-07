@@ -1,6 +1,7 @@
 package ideah.actions;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.CommonBundle;
 import com.intellij.ide.IdeView;
 import com.intellij.ide.actions.CreateElementActionBase;
@@ -32,7 +33,7 @@ public final class NewHaskellFileAction extends CreateElementActionBase {
     }
 
     @Override
-	@NotNull
+	@Nonnull
     protected PsiElement[] invokeDialog(Project project, PsiDirectory directory) {
         if (!isHaskellModule(project, directory)) {
             Messages.showErrorDialog(project, "Cannot create " + WHAT + " in non-Haskell project", "Wrong module");
@@ -44,7 +45,7 @@ public final class NewHaskellFileAction extends CreateElementActionBase {
     }
 
     @Override
-	@NotNull
+	@Nonnull
     protected PsiElement[] create(String newName, PsiDirectory directory) throws Exception {
         HaskellFileType type = HaskellFileType.INSTANCE;
         String ext = type.getDefaultExtension();

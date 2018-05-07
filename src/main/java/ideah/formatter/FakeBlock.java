@@ -2,7 +2,7 @@ package ideah.formatter;
 
 import com.intellij.formatting.*;
 import com.intellij.openapi.util.TextRange;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.Collections;
 import java.util.List;
@@ -15,12 +15,12 @@ final class FakeBlock implements Block {
         this.range = range;
     }
 
-    @NotNull
+    @Nonnull
     public TextRange getTextRange() {
         return range;
     }
 
-    @NotNull
+    @Nonnull
     public List<Block> getSubBlocks() {
         return Collections.emptyList();
     }
@@ -41,7 +41,7 @@ final class FakeBlock implements Block {
         return null;
     }
 
-    @NotNull
+    @Nonnull
     public ChildAttributes getChildAttributes(int newChildIndex) {
         return new ChildAttributes(null, null);
     }

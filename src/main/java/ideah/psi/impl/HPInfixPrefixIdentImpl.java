@@ -1,12 +1,13 @@
 package ideah.psi.impl;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
 import ideah.psi.api.HPInfixPrefixIdent;
-import org.jetbrains.annotations.NotNull;
 
 public final class HPInfixPrefixIdentImpl extends HaskellAbstractIdentImpl implements HPInfixPrefixIdent {
 
-    public HPInfixPrefixIdentImpl(@NotNull ASTNode node) {
+    public HPInfixPrefixIdentImpl(@Nonnull ASTNode node) {
         super(node);
     }
 

@@ -7,15 +7,15 @@ import com.intellij.openapi.options.colors.ColorDescriptor;
 import com.intellij.openapi.options.colors.ColorSettingsPage;
 import ideah.HaskellFileType;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.util.Map;
 
 public final class HaskellColorsAndFontsPage implements ColorSettingsPage {
 
-    @NotNull
+    @Nonnull
     public String getDisplayName() {
         return "Haskell";
     }
@@ -25,7 +25,7 @@ public final class HaskellColorsAndFontsPage implements ColorSettingsPage {
         return HaskellFileType.HASKELL_ICON;
     }
 
-    @NotNull
+    @Nonnull
     public AttributesDescriptor[] getAttributeDescriptors() {
         return ATTRS;
     }
@@ -46,18 +46,18 @@ public final class HaskellColorsAndFontsPage implements ColorSettingsPage {
             new AttributesDescriptor(HaskellSyntaxHighlighter.ERROR_UNDEFINED_ID, HaskellSyntaxHighlighter.ERROR_UNDEFINED_ATTR)
         };
 
-    @NotNull
+    @Nonnull
     public ColorDescriptor[] getColorDescriptors() {
         return new ColorDescriptor[0];
     }
 
-    @NotNull
+    @Nonnull
     public SyntaxHighlighter getHighlighter() {
         return new HaskellSyntaxHighlighter();
     }
 
     @NonNls
-    @NotNull
+    @Nonnull
     public String getDemoText() {
         return
             "{-\n" +

@@ -1,5 +1,7 @@
 package ideah.parser;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
 import consulo.lang.LanguageVersion;
 import com.intellij.lang.PsiBuilder;
@@ -7,11 +9,10 @@ import com.intellij.lang.PsiParser;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.TokenSet;
 import ideah.lexer.HaskellTokenTypes;
-import org.jetbrains.annotations.NotNull;
 
 public final class HaskellParser implements PsiParser, HaskellElementTypes {
 
-    @NotNull
+    @Nonnull
     public ASTNode parse(IElementType root, PsiBuilder builder, LanguageVersion languageVersion) {
         builder.setDebugMode(true);
         PsiBuilder.Marker start = builder.mark();

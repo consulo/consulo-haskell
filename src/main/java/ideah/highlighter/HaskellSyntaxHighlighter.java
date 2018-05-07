@@ -5,8 +5,9 @@ import java.awt.Font;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
 import com.intellij.lexer.Lexer;
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors;
 import com.intellij.openapi.editor.HighlighterColors;
@@ -123,13 +124,13 @@ public final class HaskellSyntaxHighlighter extends SyntaxHighlighterBase implem
 		fillMap(ATTRIBUTES, TS_ERROR_UNDEFINED, ERROR_UNDEFINED_ATTR);
 	}
 
-	@NotNull
+	@Nonnull
 	public Lexer getHighlightingLexer()
 	{
 		return new HaskellLexer();
 	}
 
-	@NotNull
+	@Nonnull
 	public TextAttributesKey[] getTokenHighlights(IElementType type)
 	{
 		return pack(ATTRIBUTES.get(type));

@@ -6,7 +6,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import ideah.util.CompilerLocation;
 import ideah.util.GHCUtil;
 import ideah.util.ProcessLauncher;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,7 +22,7 @@ public final class LaunchGHC {
 
     static final String EOLN = "\n";
 
-    public static List<GHCMessage> compile(VirtualFile output, String fileName, @NotNull Module module, boolean tests) {
+    public static List<GHCMessage> compile(VirtualFile output, String fileName, @Nonnull Module module, boolean tests) {
         try {
             CompilerLocation compiler = CompilerLocation.get(module);
             if (compiler == null)

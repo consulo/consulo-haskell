@@ -5,12 +5,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.annotation.Nonnull;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import consulo.haskell.module.extension.HaskellModuleExtension;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 import com.intellij.execution.CantRunException;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.ExecutionHelper;
@@ -70,7 +71,7 @@ public final class HaskellConsoleRunner
 	private HaskellConsoleExecuteActionHandler executeHandler;
 	private AnAction runAction;
 
-	private HaskellConsoleRunner(@NotNull Module module, @NotNull String consoleTitle, @Nullable String workingDir)
+	private HaskellConsoleRunner(@Nonnull Module module, @Nonnull String consoleTitle, @Nullable String workingDir)
 	{
 		this.module = module;
 		this.project = module.getProject();
@@ -78,14 +79,14 @@ public final class HaskellConsoleRunner
 		this.workingDir = workingDir;
 	}
 
-	public static HaskellConsoleProcessHandler run(@NotNull Module module)
+	public static HaskellConsoleProcessHandler run(@Nonnull Module module)
 	{
 		String srcRoot = ModuleRootManager.getInstance(module).getContentRoots()[0].getPath();
 		String path = srcRoot + File.separator + "src";
 		return run(module, path);
 	}
 
-	public static HaskellConsoleProcessHandler run(@NotNull Module module, String workingDir, String... statements2execute)
+	public static HaskellConsoleProcessHandler run(@Nonnull Module module, String workingDir, String... statements2execute)
 	{
 		HaskellConsoleRunner runner = new HaskellConsoleRunner(module, REPL_TITLE, workingDir);
 		try

@@ -6,12 +6,12 @@ import com.intellij.psi.PsiElement;
 import com.intellij.refactoring.rename.RenameDialog;
 import com.intellij.refactoring.rename.RenamePsiElementProcessor;
 import ideah.psi.api.HPAbstractIdent;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 public final class HaskellRenameProcessor extends RenamePsiElementProcessor {
 
     @Override
-    public boolean canProcessElement(@NotNull PsiElement element) {
+    public boolean canProcessElement(@Nonnull PsiElement element) {
         return element instanceof HPAbstractIdent;
     }
 

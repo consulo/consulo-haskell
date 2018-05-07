@@ -20,8 +20,8 @@ import com.intellij.openapi.vfs.VirtualFileManager;
 import ideah.parser.HaskellFile;
 import ideah.util.DeclarationPosition;
 import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -68,7 +68,7 @@ public final class HaskellRunConfiguration extends ModuleBasedConfiguration<RunC
         return new ConfigurationEditor(modules);
     }
 
-    public RunProfileState getState(@NotNull Executor executor, @NotNull ExecutionEnvironment env) {
+    public RunProfileState getState(@Nonnull Executor executor, @Nonnull ExecutionEnvironment env) {
         HaskellCommandLineState state = new HaskellCommandLineState(env, this);
         state.setConsoleBuilder(TextConsoleBuilderFactory.getInstance().createBuilder(getProject()));
         return state;
@@ -108,12 +108,12 @@ public final class HaskellRunConfiguration extends ModuleBasedConfiguration<RunC
         return ExternalizablePath.localPathValue(workingDir);
     }
 
-    public void setEnvs(@NotNull Map<String, String> envs) {
+    public void setEnvs(@Nonnull Map<String, String> envs) {
         this.myEnvs.clear();
         this.myEnvs.putAll(envs);
     }
 
-    @NotNull
+    @Nonnull
     public Map<String, String> getEnvs() {
         return myEnvs;
     }

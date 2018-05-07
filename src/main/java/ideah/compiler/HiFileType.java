@@ -2,7 +2,7 @@ package ideah.compiler;
 
 import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.openapi.vfs.VirtualFile;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 
@@ -10,17 +10,17 @@ public final class HiFileType implements FileType {
 
     public static final HiFileType INSTANCE = new HiFileType();
 
-    @NotNull
-    public String getName() {
+    @Nonnull
+    public String getId() {
         return "Haskell interface";
     }
 
-    @NotNull
+    @Nonnull
     public String getDescription() {
         return "Haskell interface file";
     }
 
-    @NotNull
+    @Nonnull
     public String getDefaultExtension() {
         return "hi";
     }
@@ -37,7 +37,7 @@ public final class HiFileType implements FileType {
         return true;
     }
 
-    public String getCharset(@NotNull VirtualFile file, byte[] content) {
+    public String getCharset(@Nonnull VirtualFile file, byte[] content) {
         return null;
     }
 }

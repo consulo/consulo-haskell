@@ -1,12 +1,14 @@
 package ideah.highlighter;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.BracePair;
 import com.intellij.lang.PairedBraceMatcher;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.tree.IElementType;
 import ideah.lexer.HaskellTokenTypes;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 
 public final class HaskellBraceMatcher implements PairedBraceMatcher, HaskellTokenTypes {
 
@@ -20,7 +22,7 @@ public final class HaskellBraceMatcher implements PairedBraceMatcher, HaskellTok
         return PAIRS;
     }
 
-    public boolean isPairedBracesAllowedBeforeType(@NotNull IElementType lbraceType, @Nullable IElementType contextType) {
+    public boolean isPairedBracesAllowedBeforeType(@Nonnull IElementType lbraceType, @Nullable IElementType contextType) {
         return contextType == null
             || WHITESPACES.contains(contextType)
             || COMMENTS.contains(contextType)

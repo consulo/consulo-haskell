@@ -1,6 +1,7 @@
 package ideah.parser;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.ParserDefinition;
 import com.intellij.lang.PsiParser;
@@ -24,7 +25,7 @@ public final class HaskellParserDefinition implements ParserDefinition, HaskellT
 
     public static final IFileElementType HASKELL_FILE = new IFileElementType(HaskellFileType.HASKELL_LANGUAGE);
 
-    @NotNull
+    @Nonnull
     public Lexer createLexer(LanguageVersion languageVersion) {
         return new HaskellLexer();
     }
@@ -37,22 +38,22 @@ public final class HaskellParserDefinition implements ParserDefinition, HaskellT
         return HASKELL_FILE;
     }
 
-    @NotNull
+    @Nonnull
     public TokenSet getWhitespaceTokens(LanguageVersion languageVersion) {
         return WHITESPACES;
     }
 
-    @NotNull
+    @Nonnull
     public TokenSet getCommentTokens(LanguageVersion languageVersion) {
         return COMMENTS;
     }
 
-    @NotNull
+    @Nonnull
     public TokenSet getStringLiteralElements(LanguageVersion languageVersion) {
         return STRINGS;
     }
 
-    @NotNull
+    @Nonnull
     public PsiElement createElement(ASTNode node) {
         IElementType type = node.getElementType();
         if (type == HaskellElementTypes.MODULE) { // where is it initialized???

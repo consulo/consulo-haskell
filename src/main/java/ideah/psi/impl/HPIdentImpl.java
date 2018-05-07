@@ -5,11 +5,11 @@ import com.intellij.psi.tree.IElementType;
 import ideah.lexer.HaskellTokenType;
 import ideah.parser.HaskellElementTypes;
 import ideah.psi.api.HPIdent;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 public final class HPIdentImpl extends HaskellAbstractIdentImpl implements HPIdent {
 
-    public HPIdentImpl(@NotNull ASTNode node) {
+    public HPIdentImpl(@Nonnull ASTNode node) {
         super(node);
     }
 

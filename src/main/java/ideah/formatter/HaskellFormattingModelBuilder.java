@@ -20,7 +20,7 @@ import ideah.util.CompilerLocation;
 import ideah.util.DeclarationPosition;
 import ideah.util.LineColRange;
 import ideah.util.ProcessLauncher;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,7 +33,7 @@ public final class HaskellFormattingModelBuilder implements FormattingModelBuild
 
     private static final Logger LOG = Logger.getInstance("ideah.formatter.HaskellFormattingModelBuilder");
 
-    @NotNull
+    @Nonnull
     public FormattingModel createModel(PsiElement element, CodeStyleSettings settings) {
         Block root = null;
         try {

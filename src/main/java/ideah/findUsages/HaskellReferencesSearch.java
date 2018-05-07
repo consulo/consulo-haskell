@@ -17,7 +17,7 @@ import ideah.compiler.HaskellCompiler;
 import ideah.psi.api.HPAbstractIdent;
 import ideah.psi.impl.HPIdentImpl;
 import ideah.util.*;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.io.BufferedReader;
 import java.io.StringReader;
@@ -33,7 +33,7 @@ public final class HaskellReferencesSearch extends QueryExecutorBase<PsiReferenc
     }
 
     @Override
-    public void processQuery(@NotNull ReferencesSearch.SearchParameters queryParameters, @NotNull Processor<PsiReference> consumer) {
+    public void processQuery(@Nonnull ReferencesSearch.SearchParameters queryParameters, @Nonnull Processor<PsiReference> consumer) {
         PsiElement element = queryParameters.getElementToSearch();
         if (!(element instanceof HPAbstractIdent))
             return;

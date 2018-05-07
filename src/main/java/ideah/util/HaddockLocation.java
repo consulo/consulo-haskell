@@ -3,8 +3,8 @@ package ideah.util;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.progress.ProgressIndicator;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -21,7 +21,7 @@ public final class HaddockLocation extends LocationUtil {
         super(exe, libPath, ghcOptions);
     }
 
-    private static List<String> getMissingPackages(@NotNull String cabalPath, String... packages) throws IOException, InterruptedException {
+    private static List<String> getMissingPackages(@Nonnull String cabalPath, String... packages) throws IOException, InterruptedException {
         List<String> args = new ArrayList<String>();
         args.addAll(Arrays.asList(cabalPath, "list", "--installed", "-v0", "--simple-output"));
         TreeMap<String, String> argsPackages = new TreeMap<String, String>();
@@ -50,7 +50,7 @@ public final class HaddockLocation extends LocationUtil {
         return missingPackages;
     }
 
-    private static void runCabal(@NotNull String cabalPath, List<String> cabalArgsList) throws IOException, InterruptedException {
+    private static void runCabal(@Nonnull String cabalPath, List<String> cabalArgsList) throws IOException, InterruptedException {
         List<String> args = new ArrayList<String>();
         args.add(cabalPath);
         args.addAll(cabalArgsList);
@@ -59,7 +59,7 @@ public final class HaddockLocation extends LocationUtil {
         );
     }
 
-    private static void cabalInstall(@NotNull String cabalPath, @Nullable ProgressIndicator indicator, double maxIndicatorFraction, @NotNull List<String> packages) throws IOException, InterruptedException {
+    private static void cabalInstall(@Nonnull String cabalPath, @Nullable ProgressIndicator indicator, double maxIndicatorFraction, @Nonnull List<String> packages) throws IOException, InterruptedException {
         if (packages.isEmpty())
             return;
         AskUtil.updateIndicatorText(indicator, "Updating Cabal...");
@@ -83,7 +83,7 @@ public final class HaddockLocation extends LocationUtil {
     }
 
     // todo: HTTP proxy settings
-    private static void cabalCheckAndInstall(@NotNull String cabalPath, @Nullable ProgressIndicator indicator, double maxIndicatorFraction, String... packages) {
+    private static void cabalCheckAndInstall(@Nonnull String cabalPath, @Nullable ProgressIndicator indicator, double maxIndicatorFraction, String... packages) {
         if (packages.length > 0) {
             try {
                 AskUtil.updateIndicatorText(indicator, "Checking installed Cabal packages...");

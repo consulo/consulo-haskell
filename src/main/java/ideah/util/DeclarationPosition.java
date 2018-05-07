@@ -9,8 +9,8 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiFileSystemItem;
 import ideah.compiler.HaskellCompiler;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -29,7 +29,7 @@ public final class DeclarationPosition {
     }
 
     @Nullable
-    public static DeclarationPosition get(@NotNull PsiFile psiFile, @Nullable LineCol coord) throws IOException, InterruptedException {
+    public static DeclarationPosition get(@Nonnull PsiFile psiFile, @Nullable LineCol coord) throws IOException, InterruptedException {
         if (coord == null)
             return null;
         VirtualFile file = psiFile.getVirtualFile();

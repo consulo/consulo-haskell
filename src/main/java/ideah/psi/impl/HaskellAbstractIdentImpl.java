@@ -1,8 +1,10 @@
 package ideah.psi.impl;
 
+import javax.annotation.Nonnull;
+
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.progress.ProcessCanceledException;
@@ -25,7 +27,7 @@ public abstract class HaskellAbstractIdentImpl extends HaskellBaseElementImpl im
 
     private static final Logger LOG = Logger.getInstance("ideah.psi.impl.HaskellAbstractIdentImpl");
 
-    protected HaskellAbstractIdentImpl(@NotNull ASTNode node) {
+    protected HaskellAbstractIdentImpl(@Nonnull ASTNode node) {
         super(node);
     }
 
@@ -35,7 +37,7 @@ public abstract class HaskellAbstractIdentImpl extends HaskellBaseElementImpl im
     }
 
     @Nullable
-    public PsiElement setName(@NotNull @NonNls String name) throws IncorrectOperationException {
+    public PsiElement setName(@Nonnull @NonNls String name) throws IncorrectOperationException {
         LexedIdentifier parsedNewName = LexedIdentifier.parse(name);
         LexedIdentifier parsedOldName = LexedIdentifier.parseMaybeInfixPrefix(getText());
         LOG.assertTrue(!(parsedNewName == null || parsedOldName == null));
@@ -119,7 +121,7 @@ public abstract class HaskellAbstractIdentImpl extends HaskellBaseElementImpl im
         return new HPIdentImpl(elementAt.getNode());
     }
 
-    @NotNull
+    @Nonnull
     public String getCanonicalText() {
         return getText(); // todo: resolve full module name?
     }
@@ -128,7 +130,7 @@ public abstract class HaskellAbstractIdentImpl extends HaskellBaseElementImpl im
         return setName(newElementName);
     }
 
-    public PsiElement bindToElement(@NotNull PsiElement element) throws IncorrectOperationException {
+    public PsiElement bindToElement(@Nonnull PsiElement element) throws IncorrectOperationException {
         return null; // todo
     }
 

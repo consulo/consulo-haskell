@@ -3,7 +3,7 @@ package ideah.tree;
 import com.google.common.collect.Iterables;
 import com.intellij.formatting.*;
 import com.intellij.openapi.util.TextRange;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.*;
 
@@ -74,12 +74,12 @@ public abstract class Located implements Block {
         return getClass().getSimpleName() + " " + location;
     }
 
-    @NotNull
+    @Nonnull
     public final TextRange getTextRange() {
         return location.getRange();
     }
 
-    @NotNull
+    @Nonnull
     public final List<Block> getSubBlocks() {
         return subBlocks;
     }
@@ -100,7 +100,7 @@ public abstract class Located implements Block {
         return null;
     }
 
-    @NotNull
+    @Nonnull
     public ChildAttributes getChildAttributes(int newChildIndex) {
         return new ChildAttributes(null, null);
     }

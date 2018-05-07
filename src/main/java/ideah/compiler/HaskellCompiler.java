@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.compiler.impl.CompilerUtil;
 import com.intellij.openapi.compiler.CompileContext;
 import com.intellij.openapi.compiler.CompileScope;
@@ -101,14 +101,14 @@ public final class HaskellCompiler implements TranslatingCompiler
 		}
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public FileType[] getInputFileTypes()
 	{
 		return new FileType[]{HaskellFileType.INSTANCE};
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public FileType[] getOutputFileTypes()
 	{
@@ -153,7 +153,7 @@ public final class HaskellCompiler implements TranslatingCompiler
 		return ModuleUtilCore.getExtension(module, HaskellModuleExtension.class) != null;
 	}
 
-	@NotNull
+	@Nonnull
 	public String getDescription()
 	{
 		return "Haskell compiler";

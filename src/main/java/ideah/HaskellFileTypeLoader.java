@@ -3,7 +3,7 @@ package ideah;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.openapi.fileTypes.FileTypeConsumer;
 import com.intellij.openapi.fileTypes.FileTypeFactory;
@@ -13,7 +13,7 @@ public final class HaskellFileTypeLoader extends FileTypeFactory {
 
     public static final List<FileType> HASKELL_FILE_TYPES = new ArrayList<FileType>();
 
-    public void createFileTypes(@NotNull FileTypeConsumer consumer) {
+    public void createFileTypes(@Nonnull FileTypeConsumer consumer) {
         consumer.consume(HaskellFileType.INSTANCE, StringUtil.join(new String[] {"hs", "lhs"}, ";"));
         HASKELL_FILE_TYPES.add(HaskellFileType.INSTANCE);
     }

@@ -1,18 +1,19 @@
 package ideah.psi.impl;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.extapi.psi.ASTDelegatePsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.impl.source.tree.SharedImplUtil;
 import ideah.psi.api.HaskellPsiElement;
-import org.jetbrains.annotations.NotNull;
 
 public abstract class HaskellBaseElementImpl extends ASTDelegatePsiElement implements HaskellPsiElement {
 
-    @NotNull
+    @Nonnull
     private final ASTNode node;
 
-    protected HaskellBaseElementImpl(@NotNull ASTNode node) {
+    protected HaskellBaseElementImpl(@Nonnull ASTNode node) {
         this.node = node;
     }
 
@@ -20,7 +21,7 @@ public abstract class HaskellBaseElementImpl extends ASTDelegatePsiElement imple
         return SharedImplUtil.getParent(getNode());
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public final ASTNode getNode() {
         return node;

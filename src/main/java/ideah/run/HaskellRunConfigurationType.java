@@ -1,10 +1,10 @@
 package ideah.run;
 
+import javax.annotation.Nonnull;
 import javax.swing.Icon;
 
 import consulo.haskell.HaskellIcons;
 import consulo.haskell.module.extension.HaskellModuleExtension;
-import org.jetbrains.annotations.NotNull;
 import com.intellij.execution.configuration.ConfigurationFactoryEx;
 import com.intellij.execution.configurations.ConfigurationFactory;
 import com.intellij.execution.configurations.ConfigurationType;
@@ -26,7 +26,7 @@ public final class HaskellRunConfigurationType implements ConfigurationType
 		this.myFactory = new ConfigurationFactoryEx(this)
 		{
 			@Override
-			public boolean isApplicable(@NotNull Project project)
+			public boolean isApplicable(@Nonnull Project project)
 			{
 				return ModuleExtensionHelper.getInstance(project).hasModuleExtension(HaskellModuleExtension.class);
 			}
@@ -58,7 +58,7 @@ public final class HaskellRunConfigurationType implements ConfigurationType
 	}
 
 	@Override
-	@NotNull
+	@Nonnull
 	public String getId()
 	{
 		return "HaskellRunConfiguration";

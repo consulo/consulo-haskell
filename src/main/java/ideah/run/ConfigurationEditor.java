@@ -2,7 +2,7 @@ package ideah.run;
 
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.options.SettingsEditor;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 
@@ -22,7 +22,7 @@ final class ConfigurationEditor extends SettingsEditor<HaskellRunConfiguration> 
         programParams.reset(s);
     }
 
-    @NotNull
+    @Nonnull
     protected JComponent createEditor() {
         return programParams.getVisual();
     }

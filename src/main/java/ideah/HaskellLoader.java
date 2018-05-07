@@ -1,11 +1,11 @@
 package ideah;
 
 import com.intellij.openapi.components.ApplicationComponent;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 public final class HaskellLoader implements ApplicationComponent {
 
-    @NotNull
+    @Nonnull
     public String getComponentName() {
         return "haskell.support.loader";
     }

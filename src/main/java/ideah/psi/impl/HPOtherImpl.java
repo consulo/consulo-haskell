@@ -1,11 +1,12 @@
 package ideah.psi.impl;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
-import org.jetbrains.annotations.NotNull;
 
 public final class HPOtherImpl extends HaskellBaseElementImpl {
 
-    public HPOtherImpl(@NotNull ASTNode node) {
+    public HPOtherImpl(@Nonnull ASTNode node) {
         super(node);
     }
 }

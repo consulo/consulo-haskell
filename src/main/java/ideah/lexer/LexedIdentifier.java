@@ -1,7 +1,7 @@
 package ideah.lexer;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public final class LexedIdentifier {
 
@@ -10,10 +10,10 @@ public final class LexedIdentifier {
      * null for no module
      */
     public final String module;
-    @NotNull
+    @Nonnull
     public final String text;
 
-    LexedIdentifier(HaskellTokenType type, String module, @NotNull String text) {
+    LexedIdentifier(HaskellTokenType type, String module, @Nonnull String text) {
         this.type = type;
         this.module = module;
         this.text = text;

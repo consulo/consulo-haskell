@@ -3,7 +3,7 @@ package ideah.annotator;
 import java.io.File;
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.lang.annotation.AnnotationHolder;
 import com.intellij.lang.annotation.ExternalAnnotator;
 import com.intellij.openapi.compiler.CompilerMessageCategory;
@@ -30,7 +30,7 @@ public final class GHCMessageHighlighter extends ExternalAnnotator<PsiFile, Anno
     }
 
     @Override
-    public void apply(@NotNull PsiFile file, AnnotationResult result, @NotNull AnnotationHolder holder) {
+    public void apply(@Nonnull PsiFile file, AnnotationResult result, @Nonnull AnnotationHolder holder) {
         if (result == null)
             return;
         showMessages(file, holder, result.file, result.ghcMessages);

@@ -10,12 +10,12 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.swing.Icon;
 
 import consulo.haskell.HaskellIcons;
 import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.intellij.openapi.projectRoots.AdditionalDataConfigurable;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.projectRoots.SdkAdditionalData;
@@ -30,7 +30,7 @@ import ideah.util.ProcessLauncher;
 public final class HaskellSdkType extends SdkType
 {
 
-	@NotNull
+	@Nonnull
 	public static HaskellSdkType getInstance()
 	{
 		return EP_NAME.findExtension(HaskellSdkType.class);
@@ -41,7 +41,7 @@ public final class HaskellSdkType extends SdkType
 		super("GHC");
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Collection<String> suggestHomePaths()
 	{
@@ -277,7 +277,7 @@ public final class HaskellSdkType extends SdkType
 		return new HaskellSdkAdditionalData(additional);
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public String getPresentableName()
 	{

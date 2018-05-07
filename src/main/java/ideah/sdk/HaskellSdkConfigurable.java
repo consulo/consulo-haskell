@@ -10,7 +10,7 @@ import com.intellij.openapi.util.SystemInfo;
 import com.intellij.openapi.vfs.VirtualFile;
 import ideah.util.GHCUtil;
 import ideah.util.ProcessLauncher;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.io.File;

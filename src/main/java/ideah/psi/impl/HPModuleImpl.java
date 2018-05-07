@@ -1,12 +1,13 @@
 package ideah.psi.impl;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
 import ideah.psi.api.HPModule;
-import org.jetbrains.annotations.NotNull;
 
 public final class HPModuleImpl extends HaskellBaseElementImpl implements HPModule {
 
-    public HPModuleImpl(@NotNull ASTNode node) {
+    public HPModuleImpl(@Nonnull ASTNode node) {
         super(node);
     }
 }

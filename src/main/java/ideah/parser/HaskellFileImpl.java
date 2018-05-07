@@ -1,24 +1,25 @@
 package ideah.parser;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.extapi.psi.PsiFileBase;
 import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.psi.FileViewProvider;
 import com.intellij.psi.PsiElementVisitor;
 import ideah.HaskellFileType;
-import org.jetbrains.annotations.NotNull;
 
 public final class HaskellFileImpl extends PsiFileBase implements HaskellFile {
 
-    public HaskellFileImpl(@NotNull FileViewProvider provider) {
+    public HaskellFileImpl(@Nonnull FileViewProvider provider) {
         super(provider, HaskellFileType.HASKELL_LANGUAGE);
     }
 
-    @NotNull
+    @Nonnull
     public FileType getFileType() {
         return HaskellFileType.INSTANCE;
     }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
+    public void accept(@Nonnull PsiElementVisitor visitor) {
         visitor.visitFile(this); // todo
     }
 }

@@ -1,5 +1,7 @@
 package ideah.findUsages;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.cacheBuilder.DefaultWordsScanner;
 import com.intellij.lang.cacheBuilder.WordsScanner;
 import com.intellij.lang.findUsages.FindUsagesProvider;
@@ -7,7 +9,6 @@ import com.intellij.psi.PsiElement;
 import ideah.lexer.HaskellLexer;
 import ideah.parser.HaskellParserDefinition;
 import ideah.psi.api.HPAbstractIdent;
-import org.jetbrains.annotations.NotNull;
 
 public final class HaskellFindUsagesProvider implements FindUsagesProvider {
 
@@ -16,26 +17,26 @@ public final class HaskellFindUsagesProvider implements FindUsagesProvider {
             HaskellParserDefinition.IDS, HaskellParserDefinition.COMMENTS, HaskellParserDefinition.STRINGS);
     }
 
-    public boolean canFindUsagesFor(@NotNull PsiElement psiElement) {
+    public boolean canFindUsagesFor(@Nonnull PsiElement psiElement) {
         return psiElement instanceof HPAbstractIdent;
     }
 
-    public String getHelpId(@NotNull PsiElement psiElement) {
+    public String getHelpId(@Nonnull PsiElement psiElement) {
         return null;
     }
 
-    @NotNull
-    public String getType(@NotNull PsiElement psiElement) {
+    @Nonnull
+    public String getType(@Nonnull PsiElement psiElement) {
         return "symbol";
     }
 
-    @NotNull
-    public String getDescriptiveName(@NotNull PsiElement psiElement) {
+    @Nonnull
+    public String getDescriptiveName(@Nonnull PsiElement psiElement) {
         return psiElement.getText();
     }
 
-    @NotNull
-    public String getNodeText(@NotNull PsiElement element, boolean useFullName) {
+    @Nonnull
+    public String getNodeText(@Nonnull PsiElement element, boolean useFullName) {
         if (element instanceof HPAbstractIdent) {
             HPAbstractIdent ident = (HPAbstractIdent) element;
             String name = ident.getName();

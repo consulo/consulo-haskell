@@ -10,8 +10,8 @@ import com.intellij.openapi.util.io.StreamUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import ideah.sdk.HaskellSdkAdditionalData;
 import consulo.haskell.module.extension.HaskellModuleExtension;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.io.*;
 import java.util.zip.ZipEntry;
@@ -26,20 +26,20 @@ final class AskUtil {
 
     private static Long sourcesLastModified = null;
 
-    @NotNull
+    @Nonnull
     private final VirtualFile ghcHome;
-    @NotNull
+    @Nonnull
     private final String libDir;
     private final String cabalPath;
     private final String ghcOptions;
-    @NotNull
+    @Nonnull
     private final File pluginPath;
-    @NotNull
+    @Nonnull
     private final File exe;
-    @NotNull
+    @Nonnull
     private final String mainFile;
 
-    private AskUtil(@NotNull VirtualFile ghcHome, @NotNull String libDir, String cabalPath, String ghcOptions, @NotNull File pluginPath, @NotNull File exe, @NotNull String mainFile) {
+    private AskUtil(@Nonnull VirtualFile ghcHome, @Nonnull String libDir, String cabalPath, String ghcOptions, @Nonnull File pluginPath, @Nonnull File exe, @Nonnull String mainFile) {
         this.ghcHome = ghcHome;
         this.libDir = libDir;
         this.cabalPath = cabalPath;

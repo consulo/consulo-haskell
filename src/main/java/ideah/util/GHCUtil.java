@@ -4,8 +4,8 @@ import com.intellij.openapi.module.Module;
 import com.intellij.openapi.roots.ModuleRootManager;
 import com.intellij.openapi.util.SystemInfo;
 import com.intellij.openapi.vfs.VirtualFile;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public final class GHCUtil {
         return new File(virBin.getPath(), executable).getAbsolutePath();
     }
 
-    public static String rootsAsString(@NotNull Module module, boolean tests) {
+    public static String rootsAsString(@Nonnull Module module, boolean tests) {
         VirtualFile[] sourceRoots = ModuleRootManager.getInstance(module).getSourceRoots(tests);
         if (sourceRoots.length <= 0)
             return ".";
@@ -47,7 +47,7 @@ public final class GHCUtil {
         return buf.toString();
     }
 
-    @NotNull
+    @Nonnull
     public static GHCVersion getVersion(@Nullable String name) {
         String[] versionStr = name == null ? new String[0] : name.split("[^0-9]");
         List<Integer> parts = new ArrayList<Integer>();

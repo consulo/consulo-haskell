@@ -1,9 +1,9 @@
 package consulo.haskell.module.extension;
 
+import javax.annotation.Nonnull;
 import javax.swing.JComponent;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.util.ui.JBUI;
 import consulo.annotations.RequiredDispatchThread;
@@ -18,12 +18,12 @@ import consulo.roots.ModuleRootLayer;
  */
 public class HaskellMutableModuleExtension extends HaskellModuleExtension implements MutableModuleExtensionWithSdk<HaskellModuleExtension>
 {
-	public HaskellMutableModuleExtension(@NotNull String id, @NotNull ModuleRootLayer moduleRootLayer)
+	public HaskellMutableModuleExtension(@Nonnull String id, @Nonnull ModuleRootLayer moduleRootLayer)
 	{
 		super(id, moduleRootLayer);
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public MutableModuleInheritableNamedPointer<Sdk> getInheritableSdk()
 	{
@@ -46,7 +46,7 @@ public class HaskellMutableModuleExtension extends HaskellModuleExtension implem
 	}
 
 	@Override
-	public boolean isModified(@NotNull HaskellModuleExtension extension)
+	public boolean isModified(@Nonnull HaskellModuleExtension extension)
 	{
 		return isModifiedImpl(extension);
 	}

@@ -2,7 +2,7 @@ package ideah.repl.actions;
 
 import java.util.Collection;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.execution.ExecutionHelper;
 import com.intellij.execution.console.LanguageConsoleImpl;
 import com.intellij.execution.process.ProcessHandler;
@@ -31,7 +31,7 @@ abstract class HaskellConsoleActionBase extends AnAction {
 
     private static final class HaskellConsoleMatcher implements NotNullFunction<RunContentDescriptor, Boolean> {
 
-        @NotNull
+        @Nonnull
         public Boolean fun(RunContentDescriptor descriptor) {
             return descriptor != null && (descriptor.getExecutionConsole() instanceof HaskellConsoleView);
         }

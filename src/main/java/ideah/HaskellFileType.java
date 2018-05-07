@@ -2,11 +2,12 @@ package ideah;
 
 import java.nio.charset.Charset;
 
+import javax.annotation.Nonnull;
 import javax.swing.Icon;
 
 import consulo.haskell.HaskellIcons;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 import com.intellij.lang.Language;
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import com.intellij.openapi.project.Project;
@@ -27,17 +28,17 @@ public final class HaskellFileType extends LanguageFileType {
         super(HaskellLanguage.INSTANCE);
     }
 
-    @NotNull
+    @Nonnull
     public String getName() {
         return "Haskell";
     }
 
-    @NotNull
+    @Nonnull
     public String getDescription() {
         return "Haskell files";
     }
 
-    @NotNull
+    @Nonnull
     public String getDefaultExtension() {
         return "hs";
     }
@@ -47,12 +48,12 @@ public final class HaskellFileType extends LanguageFileType {
     }
 
     @Override
-    public String getCharset(@NotNull VirtualFile file, byte[] content) {
+    public String getCharset(@Nonnull VirtualFile file, byte[] content) {
         return HASKELL_CHARSET_NAME;
     }
 
     @Override
-    public Charset extractCharsetFromFileContent(@Nullable Project project, @Nullable VirtualFile file, @NotNull CharSequence content) {
+    public Charset extractCharsetFromFileContent(@Nullable Project project, @Nullable VirtualFile file, @Nonnull CharSequence content) {
         return HASKELL_CHARSET;
     }
 }

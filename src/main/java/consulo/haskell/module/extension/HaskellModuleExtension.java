@@ -1,6 +1,7 @@
 package consulo.haskell.module.extension;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.openapi.projectRoots.SdkType;
 import consulo.module.extension.impl.ModuleExtensionWithSdkImpl;
 import consulo.roots.ModuleRootLayer;
@@ -12,12 +13,12 @@ import ideah.sdk.HaskellSdkType;
  */
 public class HaskellModuleExtension extends ModuleExtensionWithSdkImpl<HaskellModuleExtension>
 {
-	public HaskellModuleExtension(@NotNull String id, @NotNull ModuleRootLayer moduleRootLayer)
+	public HaskellModuleExtension(@Nonnull String id, @Nonnull ModuleRootLayer moduleRootLayer)
 	{
 		super(id, moduleRootLayer);
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Class<? extends SdkType> getSdkTypeClass()
 	{

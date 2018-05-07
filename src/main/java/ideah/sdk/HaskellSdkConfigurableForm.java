@@ -2,7 +2,7 @@ package ideah.sdk;
 
 import com.intellij.openapi.fileChooser.FileChooserDescriptor;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -49,7 +49,7 @@ public final class HaskellSdkConfigurableForm {
         modified = true;
     }
 
-    @NotNull
+    @Nonnull
     public JPanel getContentPanel() {
         return myContentPanel;
     }
