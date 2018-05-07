@@ -172,7 +172,6 @@ public final class HaskellRunConfiguration extends ModuleBasedConfiguration<RunC
     public void readExternal(Element element) throws InvalidDataException {
         PathMacroManager.getInstance(getProject()).expandPaths(element);
         super.readExternal(element);
-        readModule(element);
         mainFile = JDOMExternalizer.readString(element, "mainFile");
         programParameters = JDOMExternalizer.readString(element, "params");
         rtFlags = JDOMExternalizer.readString(element, "rtFlags");
@@ -187,7 +186,6 @@ public final class HaskellRunConfiguration extends ModuleBasedConfiguration<RunC
 
     public void writeExternal(Element element) throws WriteExternalException {
         super.writeExternal(element);
-        writeModule(element);
         JDOMExternalizer.write(element, "mainFile", mainFile);
         JDOMExternalizer.write(element, "params", programParameters);
         JDOMExternalizer.write(element, "rtFlags", rtFlags);

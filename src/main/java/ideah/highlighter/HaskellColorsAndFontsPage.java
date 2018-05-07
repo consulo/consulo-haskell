@@ -1,28 +1,22 @@
 package ideah.highlighter;
 
+import java.util.Map;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.NonNls;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.options.colors.AttributesDescriptor;
 import com.intellij.openapi.options.colors.ColorDescriptor;
 import com.intellij.openapi.options.colors.ColorSettingsPage;
-import ideah.HaskellFileType;
-import org.jetbrains.annotations.NonNls;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import javax.swing.*;
-import java.util.Map;
 
 public final class HaskellColorsAndFontsPage implements ColorSettingsPage {
 
     @Nonnull
     public String getDisplayName() {
         return "Haskell";
-    }
-
-    @Nullable
-    public Icon getIcon() {
-        return HaskellFileType.HASKELL_ICON;
     }
 
     @Nonnull

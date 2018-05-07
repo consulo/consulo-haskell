@@ -20,6 +20,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiFileFactory;
 import com.intellij.util.IncorrectOperationException;
+import consulo.awt.TargetAWT;
 import consulo.haskell.module.extension.HaskellModuleExtension;
 import ideah.HaskellFileType;
 import ideah.util.DeclarationPosition;
@@ -29,7 +30,7 @@ public final class NewHaskellFileAction extends CreateElementActionBase {
     private static final String WHAT = "Haskell module";
 
     public NewHaskellFileAction() {
-        super(WHAT, "Creates new " + WHAT, HaskellFileType.HASKELL_ICON); // todo: another icon?
+        super(WHAT, "Creates new " + WHAT, TargetAWT.to(HaskellFileType.HASKELL_ICON)); // todo: another icon?
     }
 
     @Override

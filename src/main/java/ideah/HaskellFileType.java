@@ -3,23 +3,22 @@ package ideah;
 import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
-import javax.swing.Icon;
-
-import consulo.haskell.HaskellIcons;
-
 import javax.annotation.Nullable;
+
 import com.intellij.lang.Language;
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.CharsetToolkit;
 import com.intellij.openapi.vfs.VirtualFile;
+import consulo.haskell.HaskellIcons;
+import consulo.ui.image.Image;
 
 public final class HaskellFileType extends LanguageFileType {
 
     public static final HaskellFileType INSTANCE = new HaskellFileType();
     public static final Language HASKELL_LANGUAGE = INSTANCE.getLanguage();
 	@Deprecated
-    public static final Icon HASKELL_ICON = HaskellIcons.Haskell16x16;
+    public static final Image HASKELL_ICON = HaskellIcons.Haskell16x16;
 
     private static final String HASKELL_CHARSET_NAME = CharsetToolkit.UTF8;
     public static final Charset HASKELL_CHARSET = CharsetToolkit.UTF8_CHARSET;
@@ -29,7 +28,7 @@ public final class HaskellFileType extends LanguageFileType {
     }
 
     @Nonnull
-    public String getName() {
+    public String getId() {
         return "Haskell";
     }
 
@@ -43,7 +42,7 @@ public final class HaskellFileType extends LanguageFileType {
         return "hs";
     }
 
-    public Icon getIcon() {
+    public Image getIcon() {
         return HaskellIcons.Haskell16x16;
     }
 

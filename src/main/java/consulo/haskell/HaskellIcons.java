@@ -1,13 +1,13 @@
 package consulo.haskell;
 
-import javax.swing.Icon;
-
 import com.intellij.openapi.util.IconLoader;
+import consulo.ui.image.Image;
 
 /**
  * @author VISTALL
  * @since 13.07.13.
  */
-public interface HaskellIcons {
-	Icon Haskell16x16 = IconLoader.getIcon("/ideah/haskell_16x16.png");
+public interface HaskellIcons
+{
+	Image Haskell16x16 = IconLoader.getIcon("/ideah/haskell_16x16.png");
 }

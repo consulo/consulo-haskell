@@ -1,10 +1,10 @@
 package ideah.compiler;
 
-import com.intellij.openapi.fileTypes.FileType;
-import com.intellij.openapi.vfs.VirtualFile;
 import javax.annotation.Nonnull;
 
-import javax.swing.*;
+import com.intellij.openapi.fileTypes.FileType;
+import com.intellij.openapi.vfs.VirtualFile;
+import consulo.ui.image.Image;
 
 public final class HiFileType implements FileType {
 
@@ -25,7 +25,7 @@ public final class HiFileType implements FileType {
         return "hi";
     }
 
-    public Icon getIcon() {
+    public Image getIcon() {
         return null;
     }
 
