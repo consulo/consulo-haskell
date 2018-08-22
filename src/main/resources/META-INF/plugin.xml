@@ -6,12 +6,6 @@
 	<version>SNAPSHOT</version>
 	<vendor url="http://code.google.com/p/ideah/" email="ideah.plugin@gmail.com">ideah.plugin@gmail.com</vendor>
 
-	<application-components>
-		<component>
-			<implementation-class>ideah.HaskellLoader</implementation-class>
-		</component>
-	</application-components>
-
 	<actions>
 		<!-- Create file actions -->
 		<action id="Haskell.HaskellFile" class="ideah.actions.NewHaskellFileAction"
