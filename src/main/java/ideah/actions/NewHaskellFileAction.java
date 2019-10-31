@@ -1,7 +1,5 @@
 package ideah.actions;
 
-import javax.annotation.Nonnull;
-
 import com.intellij.CommonBundle;
 import com.intellij.ide.IdeView;
 import com.intellij.ide.actions.CreateElementActionBase;
@@ -20,29 +18,30 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiFileFactory;
 import com.intellij.util.IncorrectOperationException;
-import consulo.awt.TargetAWT;
 import consulo.haskell.module.extension.HaskellModuleExtension;
 import ideah.HaskellFileType;
 import ideah.util.DeclarationPosition;
+
+import javax.annotation.Nonnull;
+import java.util.function.Consumer;
 
 public final class NewHaskellFileAction extends CreateElementActionBase {
 
     private static final String WHAT = "Haskell module";
 
     public NewHaskellFileAction() {
-        super(WHAT, "Creates new " + WHAT, TargetAWT.to(HaskellFileType.HASKELL_ICON)); // todo: another icon?
+        super(WHAT, "Creates new " + WHAT, HaskellFileType.HASKELL_ICON); // todo: another icon?
     }
 
     @Override
-	@Nonnull
-    protected PsiElement[] invokeDialog(Project project, PsiDirectory directory) {
+    protected void invokeDialog(Project project, PsiDirectory directory, Consumer<PsiElement[]> elementsConsumer) {
         if (!isHaskellModule(project, directory)) {
             Messages.showErrorDialog(project, "Cannot create " + WHAT + " in non-Haskell project", "Wrong module");
-            return new PsiElement[0];
+            return;
         }
         MyInputValidator validator = new MyInputValidator(project, directory); // todo: implement good validator
         Messages.showInputDialog(project, "Enter name for new " + WHAT, "New " + WHAT, Messages.getQuestionIcon(), "", validator);
-        return validator.getCreatedElements();
+        elementsConsumer.accept(validator.getCreatedElements());
     }
 
     @Override
