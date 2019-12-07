@@ -1,4 +1,4 @@
-<idea-plugin>
+<consulo-plugin>
 	<id>consulo.haskell</id>
 	<name>Haskell</name>
 	<description>Support for Haskell language</description>
@@ -92,4 +92,4 @@
 
 		<lang.namesValidator language="Haskell" implementationClass="ideah.psi.api.util.HaskellIdentNamesValidator"/>
 	</extensions>
-</idea-plugin>
+</consulo-plugin>

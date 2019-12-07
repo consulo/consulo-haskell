@@ -1,13 +1,13 @@
 package ideah.repl;
 
-import java.util.regex.Matcher;
-
 import com.intellij.execution.console.LanguageConsoleImpl;
 import com.intellij.execution.process.ColoredProcessHandler;
 import com.intellij.execution.ui.ConsoleViewContentType;
-import com.intellij.openapi.util.Key;
 import com.intellij.openapi.util.text.StringUtil;
+import consulo.util.dataholder.Key;
 import ideah.HaskellFileType;
+
+import java.util.regex.Matcher;
 
 public final class HaskellConsoleProcessHandler extends ColoredProcessHandler
 {
