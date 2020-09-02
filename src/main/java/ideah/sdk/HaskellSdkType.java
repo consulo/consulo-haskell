@@ -29,11 +29,10 @@ import ideah.util.ProcessLauncher;
 
 public final class HaskellSdkType extends SdkType
 {
-
 	@Nonnull
 	public static HaskellSdkType getInstance()
 	{
-		return EP_NAME.findExtension(HaskellSdkType.class);
+		return EP_NAME.findExtensionOrFail(HaskellSdkType.class);
 	}
 
 	public HaskellSdkType()
