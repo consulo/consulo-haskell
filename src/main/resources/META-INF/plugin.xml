@@ -77,7 +77,7 @@
 
 		<sdkType id="GHC" implementation="ideah.sdk.HaskellSdkType"/>
 		<moduleExtensionProvider key="haskell"
-								 icon="/ideah/haskell_16x16.png"
+								 icon="consulo.haskell.HaskellIconGroup@haskell"
 								 name="Haskell"
 								 mutableClass="consulo.haskell.module.extension.HaskellMutableModuleExtension"
 								 immutableClass="consulo.haskell.module.extension.HaskellModuleExtension" />

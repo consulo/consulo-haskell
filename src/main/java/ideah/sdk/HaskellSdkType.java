@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import consulo.haskell.icon.HaskellIconGroup;
 import org.jdom.Element;
 import com.intellij.openapi.projectRoots.AdditionalDataConfigurable;
 import com.intellij.openapi.projectRoots.Sdk;
@@ -23,7 +24,6 @@ import com.intellij.openapi.projectRoots.SdkType;
 import com.intellij.openapi.util.SystemInfo;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.util.containers.HashMap;
-import consulo.haskell.HaskellIcons;
 import consulo.ui.image.Image;
 import ideah.util.ProcessLauncher;
 
@@ -286,6 +286,6 @@ public final class HaskellSdkType extends SdkType
 	@Override
 	public Image getIcon()
 	{
-		return HaskellIcons.Haskell16x16;
+		return HaskellIconGroup.haskell();
 	}
 }

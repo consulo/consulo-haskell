@@ -7,10 +7,8 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.EmptyAction;
 import com.intellij.openapi.editor.ex.EditorEx;
 import com.intellij.openapi.project.DumbAwareAction;
-import com.intellij.openapi.util.IconLoader;
-import consulo.haskell.HaskellIcons;
+import consulo.haskell.icon.HaskellIconGroup;
 import consulo.localize.LocalizeValue;
-import consulo.ui.image.Image;
 
 abstract class HaskellExecuteActionBase extends DumbAwareAction {
     protected final HaskellConsoleView console;
@@ -21,7 +19,7 @@ abstract class HaskellExecuteActionBase extends DumbAwareAction {
                                        ProcessHandler processHandler,
                                        HaskellConsoleExecuteActionHandler executeHandler,
                                        String actionId) {
-        super(LocalizeValue.empty(), LocalizeValue.empty(), HaskellIcons.Haskell16x16);
+        super(LocalizeValue.empty(), LocalizeValue.empty(), HaskellIconGroup.haskell());
         this.console = languageConsole;
         this.processHandler = processHandler;
         this.executeHandler = executeHandler;

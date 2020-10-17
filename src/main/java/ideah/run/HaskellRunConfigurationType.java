@@ -7,7 +7,7 @@ import com.intellij.execution.configurations.ConfigurationFactory;
 import com.intellij.execution.configurations.ConfigurationType;
 import com.intellij.execution.configurations.RunConfiguration;
 import com.intellij.openapi.project.Project;
-import consulo.haskell.HaskellIcons;
+import consulo.haskell.icon.HaskellIconGroup;
 import consulo.haskell.module.extension.HaskellModuleExtension;
 import consulo.module.extension.ModuleExtensionHelper;
 import consulo.ui.image.Image;
@@ -54,7 +54,7 @@ public final class HaskellRunConfigurationType implements ConfigurationType
 	@Override
 	public Image getIcon()
 	{
-		return HaskellIcons.Haskell16x16;
+		return HaskellIconGroup.haskell();
 	}
 
 	@Override
