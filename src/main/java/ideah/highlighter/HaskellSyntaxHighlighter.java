@@ -1,13 +1,5 @@
 package ideah.highlighter;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.annotation.Nonnull;
-
-import org.jetbrains.annotations.NonNls;
 import com.intellij.lexer.Lexer;
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors;
 import com.intellij.openapi.editor.HighlighterColors;
@@ -16,8 +8,17 @@ import com.intellij.openapi.editor.markup.TextAttributes;
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.TokenSet;
+import consulo.ui.color.ColorValue;
+import consulo.ui.color.RGBColor;
+import consulo.ui.style.StandardColors;
 import ideah.lexer.HaskellLexer;
 import ideah.lexer.HaskellTokenTypes;
+import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class HaskellSyntaxHighlighter extends SyntaxHighlighterBase implements HaskellTokenTypes
 {
@@ -55,14 +56,14 @@ public final class HaskellSyntaxHighlighter extends SyntaxHighlighterBase implem
 	@NonNls
 	static final String ERROR_UNDEFINED_ID = "Wrong token";
 
-	private static TextAttributes modify(TextAttributesKey key, Color color)
+	private static TextAttributes modify(TextAttributesKey key, ColorValue color)
 	{
 		TextAttributes attrs = key.getDefaultAttributes().clone();
 		attrs.setForegroundColor(color);
 		return attrs;
 	}
 
-	private static TextAttributes modify(TextAttributesKey key, Color color, int fontType)
+	private static TextAttributes modify(TextAttributesKey key, ColorValue color, int fontType)
 	{
 		TextAttributes attrs = modify(key, color);
 		attrs.setFontType(fontType);
@@ -76,17 +77,17 @@ public final class HaskellSyntaxHighlighter extends SyntaxHighlighterBase implem
 	static final TextAttributesKey KEYWORD_ATTR = TextAttributesKey.createTextAttributesKey(KEYWORD_ID, DefaultLanguageHighlighterColors.KEYWORD);
 	static final TextAttributesKey KEYSYM_ATTR = TextAttributesKey.createTextAttributesKey(KEY_SYM_ID, DefaultLanguageHighlighterColors.KEYWORD // todo: ???
 	);
-	static final TextAttributesKey CON_ATTR = TextAttributesKey.createTextAttributesKey(TYCON_ID, modify(DefaultLanguageHighlighterColors.KEYWORD, new Color(0x268bd3)) // todo: ???
+	static final TextAttributesKey CON_ATTR = TextAttributesKey.createTextAttributesKey(TYCON_ID, modify(DefaultLanguageHighlighterColors.KEYWORD, new RGBColor(38, 139, 211)) // todo: ???
 	);
 	static final TextAttributesKey SYM_ATTR = TextAttributesKey.createTextAttributesKey(SYM_ID, DefaultLanguageHighlighterColors.OPERATION_SIGN // todo: ???
 	);
-	static final TextAttributesKey STD_FUNCTION_ATTR = TextAttributesKey.createTextAttributesKey(STD_FUNCTION_ID, modify(DefaultLanguageHighlighterColors.KEYWORD, Color.black, Font.BOLD | Font
+	static final TextAttributesKey STD_FUNCTION_ATTR = TextAttributesKey.createTextAttributesKey(STD_FUNCTION_ID, modify(DefaultLanguageHighlighterColors.KEYWORD, StandardColors.BLACK, Font.BOLD | Font
 			.ITALIC));
 	static final TextAttributesKey PAREN_ATTR = TextAttributesKey.createTextAttributesKey(PAREN_ID, DefaultLanguageHighlighterColors.PARENTHESES);
 	static final TextAttributesKey BRACES_ATTR = TextAttributesKey.createTextAttributesKey(BRACES_ID, DefaultLanguageHighlighterColors.BRACES);
 	static final TextAttributesKey BRACKETS_ATTR = TextAttributesKey.createTextAttributesKey(BRACKETS_ID, DefaultLanguageHighlighterColors.BRACKETS);
-	static final TextAttributesKey ERROR_STRING_ATTR = TextAttributesKey.createTextAttributesKey(ERROR_STRING_ID, modify(DefaultLanguageHighlighterColors.STRING, Color.RED));
-	static final TextAttributesKey ERROR_NUMBER_ATTR = TextAttributesKey.createTextAttributesKey(ERROR_NUMBER_ID, modify(DefaultLanguageHighlighterColors.NUMBER, Color.RED));
+	static final TextAttributesKey ERROR_STRING_ATTR = TextAttributesKey.createTextAttributesKey(ERROR_STRING_ID, modify(DefaultLanguageHighlighterColors.STRING, StandardColors.RED));
+	static final TextAttributesKey ERROR_NUMBER_ATTR = TextAttributesKey.createTextAttributesKey(ERROR_NUMBER_ID, modify(DefaultLanguageHighlighterColors.NUMBER, StandardColors.RED));
 	static final TextAttributesKey ERROR_UNDEFINED_ATTR = TextAttributesKey.createTextAttributesKey(ERROR_UNDEFINED_ID, HighlighterColors.BAD_CHARACTER);
 
 	private static final TokenSet TS_STRING = TokenSet.create(STRING, CHAR);
