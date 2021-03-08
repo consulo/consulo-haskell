@@ -1,31 +1,20 @@
 package ideah.sdk;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FilenameFilter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import com.intellij.openapi.projectRoots.*;
+import com.intellij.openapi.util.SystemInfo;
+import com.intellij.openapi.util.io.FileUtil;
+import consulo.haskell.icon.HaskellIconGroup;
+import consulo.ui.image.Image;
+import consulo.util.lang.StringUtil;
+import ideah.util.ProcessLauncher;
+import org.jdom.Element;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import consulo.haskell.icon.HaskellIconGroup;
-import org.jdom.Element;
-import com.intellij.openapi.projectRoots.AdditionalDataConfigurable;
-import com.intellij.openapi.projectRoots.Sdk;
-import com.intellij.openapi.projectRoots.SdkAdditionalData;
-import com.intellij.openapi.projectRoots.SdkModel;
-import com.intellij.openapi.projectRoots.SdkModificator;
-import com.intellij.openapi.projectRoots.SdkType;
-import com.intellij.openapi.util.SystemInfo;
-import com.intellij.openapi.util.io.FileUtil;
-import com.intellij.util.containers.HashMap;
-import consulo.ui.image.Image;
-import ideah.util.ProcessLauncher;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FilenameFilter;
+import java.util.*;
 
 public final class HaskellSdkType extends SdkType
 {
@@ -213,27 +202,11 @@ public final class HaskellSdkType extends SdkType
 		return suggestedName;
 	}
 
-	private final Map<String, String> cachedVersionStrings = new HashMap<String, String>();
-
 	@Override
 	public String getVersionString(String sdkHome)
 	{
-		if(cachedVersionStrings.containsKey(sdkHome))
-		{
-			return cachedVersionStrings.get(sdkHome);
-		}
 		String versionString = getGhcVersion(sdkHome);
-		if(versionString != null && versionString.length() == 0)
-		{
-			versionString = null;
-		}
-
-		if(versionString != null)
-		{
-			cachedVersionStrings.put(sdkHome, versionString);
-		}
-
-		return versionString;
+		return StringUtil.nullize(versionString);
 	}
 
 	@Nullable
