@@ -6,6 +6,10 @@
 	<version>SNAPSHOT</version>
 	<vendor url="http://code.google.com/p/ideah/" email="ideah.plugin@gmail.com">ideah.plugin@gmail.com</vendor>
 
+	<tags>
+		<tag>custom.language</tag>
+	</tags>
+
 	<actions>
 		<!-- Create file actions -->
 		<action id="Haskell.HaskellFile" class="ideah.actions.NewHaskellFileAction"
