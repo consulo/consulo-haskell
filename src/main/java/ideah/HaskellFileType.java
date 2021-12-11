@@ -11,6 +11,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.CharsetToolkit;
 import com.intellij.openapi.vfs.VirtualFile;
 import consulo.haskell.icon.HaskellIconGroup;
+import consulo.localize.LocalizeValue;
 import consulo.ui.image.Image;
 
 public final class HaskellFileType extends LanguageFileType {
@@ -33,8 +34,8 @@ public final class HaskellFileType extends LanguageFileType {
     }
 
     @Nonnull
-    public String getDescription() {
-        return "Haskell files";
+    public LocalizeValue getDescription() {
+        return LocalizeValue.localizeTODO("Haskell files");
     }
 
     @Nonnull
