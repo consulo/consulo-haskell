@@ -1,10 +1,11 @@
 package ideah.compiler;
 
-import javax.annotation.Nonnull;
-
 import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.openapi.vfs.VirtualFile;
+import consulo.localize.LocalizeValue;
 import consulo.ui.image.Image;
+
+import javax.annotation.Nonnull;
 
 public final class HiFileType implements FileType {
 
@@ -16,8 +17,8 @@ public final class HiFileType implements FileType {
     }
 
     @Nonnull
-    public String getDescription() {
-        return "Haskell interface file";
+    public LocalizeValue getDescription() {
+        return LocalizeValue.localizeTODO("Haskell interface file");
     }
 
     @Nonnull
