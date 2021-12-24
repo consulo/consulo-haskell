@@ -3,6 +3,7 @@ package ideah.compiler;
 import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.openapi.vfs.VirtualFile;
 import consulo.localize.LocalizeValue;
+import consulo.platform.base.icon.PlatformIconGroup;
 import consulo.ui.image.Image;
 
 import javax.annotation.Nonnull;
@@ -27,7 +28,7 @@ public final class HiFileType implements FileType {
     }
 
     public Image getIcon() {
-        return null;
+        return PlatformIconGroup.fileTypesBinary();
     }
 
     public boolean isBinary() {
