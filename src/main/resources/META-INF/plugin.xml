@@ -1,4 +1,4 @@
-<consulo-plugin>
+<consulo-plugin url="https://github.com/consulo/consulo-haskell">
 	<id>consulo.haskell</id>
 	<name>Haskell</name>
 	<description>Support for Haskell language</description>
